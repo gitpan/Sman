@@ -1,6 +1,6 @@
 package Sman::Man::Cache::FileCache;
 
-#$Id: FileCache.pm,v 1.3 2004/04/19 19:53:00 joshr Exp $
+#$Id: FileCache.pm,v 1.4 2005/01/05 18:46:18 joshr Exp $
 
 use Cache::FileCache;
 

@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.24 2004/05/30 22:59:31 joshr Exp $
+# $Id: sman-update,v 1.26 2005/01/05 19:23:23 joshr Exp $
 # man indexing SWISH-E prog 
 
 # Copyright (c) Josh Rabinowitz 2004
@@ -173,7 +173,7 @@ sub main {
 		close(SWISHE) || die "Failure closing pipe to $swishe";
 	}
 	# note that the swisheconfig file is in Sman::Swishe for now
-	#unlink($swisheconfigfile) || warn "Couldn't delete $swisheconfigfile: $!";
+	#unlink($swisheconfigfile) || warn "sman-update: Couldn't delete $swisheconfigfile: $!";
 	$swisheconfigfile = ""; 
 }
 sub Usage {
@@ -197,7 +197,7 @@ sub Usage {
 }
 END {	
 	if ($swisheconfigfile && -e $swisheconfigfile) {
-		unlink($swisheconfigfile) || warn "Couldn't delete $swisheconfigfile: $!";
+		unlink($swisheconfigfile) || warn "sman-update: Couldn't delete $swisheconfigfile: $!";
 		$swisheconfigfile = "";
 	}
 }

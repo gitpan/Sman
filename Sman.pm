@@ -1,27 +1,23 @@
-package Sman; 
+package Sman;
 
-#$Id: Sman.pm,v 1.29 2004/07/28 12:29:06 joshr Exp $
+#$Id: Sman.pm,v 1.31 2005/01/05 19:23:23 joshr Exp $
 
 require 5.006;
 use strict;
 use warnings;
-our $VERSION = '0.9.3';
-our $SMAN_DATA_VERSION = "1.0"; 	# this is only relevant to Sman
+our $VERSION = '0.94';
+our $SMAN_DATA_VERSION = "1.0";     # this is only relevant to Sman
 
 1;
-
 __END__
-
-=pod
 
 =head1 NAME
 
-sman - Perl tool for searching man pages
+Sman - Perl tool for searching man pages
 
 =head1 SYNOPSIS
 
-Perl tool for searching man pages
-  % sman boot disk
+ % sman boot disk
     # searches for man pages about 'boot disk'
 
   % sman -m 10 -f -r linux kernel
@@ -44,26 +40,15 @@ Both sman and sman-update search for the first configuration file named sman.con
 (or specified through the --config option), then the default 
 configuration in /usr/local/etc/sman-defaults.conf will be used.
 
-NOTE: In all cases command line options take precedence over directives read from
+NOTE: In all cases command line options take precendence over directives read from
 configuration files.
-
-=head1 SEE ALSO
-
-the output of 'sman --help',
-L<sman>, L<sman-update>, L<sman.conf>, L<SWISH-RUN>, 
-and the unrelated but similar L<man -k>, L<apropos> and 
-L<whatis>
 
 =head1 AUTHOR
 
 Josh Rabinowitz
 
-=head1 Copyright & License
+=head1 SEE ALSO
 
-Copyright 2004 joshr, All Rights Reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
-
+L<sman>, L<sman-update>, L<sman.conf>
 
 =cut

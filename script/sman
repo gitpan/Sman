@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman,v 1.25 2004/07/28 12:29:06 joshr Exp $ 
+# $Id: sman,v 1.27 2005/01/05 19:23:23 joshr Exp $ 
 # ranked, enhanced 'apropos' emulator
 use strict; 
 use warnings;
@@ -86,10 +86,15 @@ my $query = join(" ", @ARGV);
 my $handle = SWISH::API->new($index); 
 my $results = $handle->Query( $query );
 if ( $results->Hits() <= 0 ) {
-   warn "No Results for '$query'.\n"; 
+   warn "sman: No Results for '$query'.\n"; 
 }
 if ( my $error = $handle->Error( ) ) {
-   warn "Error: ",  $handle->ErrorString(), "\n";
+	my $errstr = $handle->ErrorString();
+	my $extra = "";
+	if ($errstr =~ /is empty/) {
+		$extra = "(perhaps you need to run sman-update?)";
+	}
+   warn "Error: ",  join(": ", $handle->ErrorString(), $extra) .  "\n";
 } 
 
 my (%seen, %digests);
@@ -191,3 +196,26 @@ sub MAX {
 }
 
 __END__ 
+
+i=head1 NAME
+
+Sman - Perl tool for searching man pages
+
+=head1 SYNOPSIS
+
+See 'sman --help'
+
+=head1 DESCRIPTION 
+
+Sman is a Searcher for Man pages. 
+
+=head1 AUTHOR
+
+Josh Rabinowitz
+
+=head1 SEE ALSO
+
+L<sman>, L<sman-update>, L<sman.conf>
+
+=cut
+

@@ -1,18 +1,18 @@
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Sman
-version:      0.9.3
+version:      0.94
 version_from: Sman.pm
 installdirs:  site
 requires:
-    FindBin:                       0
-    SWISH::API:                    0
-    Digest::MD5:                   0
-    File::Temp:                    0
     Cache::Cache:                  0
-    Term::Size:                    0
-    FreezeThaw:                    0
+    Digest::MD5:                   0
+    SWISH::API:                    0
     File::Find:                    0
+    File::Temp:                    0
     Compress::Zlib:                0
+    FreezeThaw:                    0
+    FindBin:                       0
+    Term::Size:                    0
 
 distribution_type: module
 generated_by: ExtUtils::MakeMaker version 6.12
