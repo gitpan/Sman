@@ -16,8 +16,8 @@ sub new {
    $self->SUPER::new();                # init base fields 
 
 	if (defined($dir)) {
-		$self->{filecache} = new Cache::FileCache({ 'namespace' => 'sman',
-                                             'default_expires_in' => "1 month" } );
+		my %hash = ( 'namespace' => 'sman', 'default_expires_in' => "1 month" );
+		$self->{filecache} = new Cache::FileCache( \%hash );
 	}
 	return $self;
 }

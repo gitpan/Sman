@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman,v 1.24 2004/06/06 17:08:54 joshr Exp $ 
+# $Id: sman,v 1.25 2004/07/28 12:29:06 joshr Exp $ 
 # ranked, enhanced 'apropos' emulator
 use strict; 
 use warnings;
@@ -145,11 +145,15 @@ for (my $i=0; $i < scalar(@toshow) && $i < $max; $i++) {
 	}
 	$line .= sprintf(" %s", $docpath) if $fileshow; 
 	print "$line\n";
-	if (defined($extractshow)) {
+	if (defined($extractshow) && $extractshow) {
 		my $manpage = $res->ResultPropertyStr("manpage") || "";
-		$manpage =~ s/^(\s*)NAME:?\s*/$1/;	# many manpages begin with NAME
-		my $extract = Sman::Util::ExtractSummary($manpage, \@ARGV, " " x 20, $width - 5);
-		print $extract . "\n" if $extract;
+		if ($manpage eq "(null)") {
+			$extractshow = 0;
+		} else {
+			$manpage =~ s/^(\s*)NAME:?\s*/$1/;	# many manpages begin with NAME
+			my $extract = Sman::Util::ExtractSummary($manpage, \@ARGV, " " x 20, $width - 5);
+			print $extract . "\n" if $extract;
+		}
 	}
 } 
 if ($numrepeats && $verbose) {

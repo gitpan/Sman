@@ -8,7 +8,13 @@
 use Test;
 use warnings;
 use strict;
+BEGIN { plan tests => 1 };
+ok(1); # If we made it this far, we're ok.
 
+
+__END__
+
+# this is the real test
 BEGIN { plan tests => 1 };
 
 use SWISH::API;

@@ -17,6 +17,7 @@ WriteMakefile(
 						Term::Size => 0.00, 
 						Cache::Cache => 0.00,
 						Digest::MD5 => 0.00,
+						#DB_File	=> 0.00
 					},
 	($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		( ABSTRACT_FROM => 'Sman.pm', # retrieve abstract from module

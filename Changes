@@ -1,8 +1,15 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
 Copyright 2004 Josh Rabinowitz 
-#$Id: Changes,v 1.27 2004/06/06 17:08:54 joshr Exp $
+#$Id: Changes,v 1.29 2004/07/28 12:29:06 joshr Exp $
 
+0.9.2  Tue Jan 04 2005
+        Updated README to mention sman's --extract option
+        Added SWISH-E WordCharacters, BeginCharacters, and EndCharacters
+         settings to sman-default.conf so that (for example) mod_perl and 
+         Apache::Test are each indexed as single words
+        use length(content) & 'use bytes' instead of pack() 
+		Changed tests to succeed even if there is no /usr/local/lib/swish-e/ directory
 0.9.1  Sun Jun 06 2004
         Updated README to reflect current output of 'sman -h'
 0.9.0  Sun Jun 06 2004

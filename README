@@ -15,10 +15,11 @@ What is sman?
 	* Supports complex natural language text searches such as 
 		"(linux and kernel) or (mach and microkernel)"
 
-	* Shows results in a ranked order
+	* Shows results in a ranked order, and optionally an extract 
+       (using -e) of the manpage showing the searched text highlighted
 
 	* Allows for searches by manpage section, title,
-		body, or filename
+		body, or filename (use 'metaname=searchword')
 
 	* Indexes the complete contents of the man page, not just 
 		the title and description
@@ -31,7 +32,7 @@ What is sman?
 Where do I get sman?  
 	Sman is currently distributed from http://joshr.com/src/sman.
 
-	Please make sure you use a current version of sman.
+	It's always best to make sure you use a current version of sman.
 
 How do I install sman?
 
@@ -83,5 +84,5 @@ TESTING
 
 COPYRIGHT AND LICENCE 
 	This software is licensed the same as perl itself.  
-	Copyright (C) 2004 Josh Rabinowitz.
+	Copyright (C) 2003-2005 Josh Rabinowitz.
 

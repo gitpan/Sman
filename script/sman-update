@@ -154,7 +154,9 @@ sub main {
 
 		# next two lines are from swish-e 2.4.0's 'spider.pl':
 		# 'ugly and maybe expensive, but perhaps more portable than "use bytes"'
-		my $bytecount = length pack 'C0a*', $$outputref;
+		#my $bytecount = length pack 'C0a*', $$outputref;
+		# this fails on Redhat 9 and ES3 if LANG is not C (or LC_ALL is not C)
+		my $bytecount = length $$outputref;
 
 		unless($dryrun) {
 			print SWISHE "Path-Name: $f\n",
