@@ -1,0 +1,88 @@
+package Sman::Autoconfig;
+use Sman::Man::Convert;
+use Storable;
+
+
+#$Id: Autoconfig.pm,v 1.4 2003/12/29 15:31:41 joshr Exp $
+
+use strict;
+use warnings;
+
+# this package finds which man command works best on this system 
+# Chooses 'best' man command for Sman.
+# Our logic is that either 'man %F' or 'man %S %C' will work
+# given a list of manfiles, we deterministically pick
+# representatives, and see which man command works best 
+# on each, XML-wise.
+	# this works for most linuxes we've tested
+	#MANCMD man %F 
+	# this works for freebsd 4.4 and Mac OS X
+	#MANCMD man %S %C
+
+my @tries = ( 'man %F', 'man %S %C', 'zcat -f %F | man' );	
+	# these are the man commands we try
+
+sub GetBestManCommand {
+	my ($smanconfig, $manfilesref) = @_;
+	
+	my %converters = ();
+	for my $cmd (@tries) {
+		my $newconfig = Storable::dclone($smanconfig);
+		$newconfig->SetConfigData("MANCMD", $cmd);
+		$newconfig->SetConfigData("AUTOCONFIGURING", 1);	# internal flag
+		$converters{ $cmd } = new Sman::Man::Convert($newconfig, { nocache=>1 } );
+	}
+	my $numfiles = 10;
+	my @testfiles = ();
+	if (scalar(@$manfilesref) < $numfiles) { $numfiles = scalar(@$manfilesref); }
+	for (my $i=0; $i < $numfiles; $i++) {
+		push(@testfiles, $manfilesref->[ int(  $i / $numfiles * scalar(@$manfilesref) ) ] );
+	}
+
+	my %cmdwins = ();
+	for my $file (@testfiles) {
+		warn "Testing $file" if $smanconfig->GetConfigData("VERBOSE");;
+		my ($maxlen, $winningcmd) = (0, "");
+		for my $mancmd (keys(%converters)) {
+			my ($parser, $contentref) = $converters{$mancmd}->ConvertManfile($file);
+			if (length($$contentref) > $maxlen) {
+				$maxlen = length($$contentref);
+				$winningcmd = $mancmd;
+			}
+		}
+		$cmdwins{$winningcmd}++;
+	}
+	my @wins = sort { $cmdwins{$b} <=> $cmdwins{$a} } keys(%cmdwins);
+	if (scalar(@wins)) { return $wins[0]; }
+	return 'man %S %C';  # or 'man %F'
+} 
+
+1;
+__END__ 
+
+=head1 NAME
+
+Sman::Autoconfig - Automatically choose the 'best' man command
+
+=head1 SYNOPSIS 
+
+	...
+	my $mancmd = Sman::Autoconfig::GetBestManCommand(
+		$smanconfig, \@manfiles);
+	...
+	
+=head1 DESCRIPTION
+
+Chooses a representative sample of the manfiles passed and tests
+which usual man command seems to work best on this system's man
+files.
+
+=head1 AUTHOR
+
+Josh Rabinowitz
+
+=head1 SEE ALSO
+
+L<Sman::Man::Convert>, L<Sman::Config>, L<sman.conf>
+
+=cut

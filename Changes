@@ -1,0 +1,97 @@
+Revision history for Sman.  
+http://joshr.com/src/sman/
+Copyright 2004 Josh Rabinowitz 
+#$Id: Changes,v 1.27 2004/06/06 17:08:54 joshr Exp $
+
+0.9.1  Sun Jun 06 2004
+        Updated README to reflect current output of 'sman -h'
+0.9.0  Sun Jun 06 2004
+        sman: added --extract option, which shows extract of manpage,
+         use ResultPropertyString() to avoid exceptions, 
+         make default width 80 chars if not connected to a terminal
+        sman-update: only print errors from 'man' if -warn is enabled
+        Added 'manpage' and 'digest' metas and props to index
+        Added basic tests for sman and sman-update scripts
+        Updated TODO file
+        This version was never released
+0.8.9  Mon May 31 2004
+        Updated TODO, fixed copyright year and typos in README & sman-defaults.conf
+        Get version string for perl, not its API version 
+          in Sman::Util::GetVersionString
+        Consider output of choice of MANCMD verbose 
+0.8.8  Mon Apr 19 2004
+        Disable warnings in some of Sman::Man::Cache::FileCache for perl 5.8.0
+        Added perl version to -V(ERSION) output, show versions as '5.8.3'
+        Updated README
+        Remove config entries for defunct DB_File caching
+        Use 'no warnings', not $^W to disable warnings in .../FileCache.pm
+        Updated 'TODO' file.
+        Tiny change to sman to avoid perl warnings on OS X 10.3.3
+        Fixed years to 2004 in Changes files
+0.8.7  Sat Apr 17 2004
+        Update TODO, README
+        Add stemming back with swish-e's new FuzzyIndexingMode directive
+0.8.6  Sat Apr 17 2004
+        Prereq perl modules are v0.00, not v0.01 in Makefile.PL
+        There is no 'cmd' property, remove to work with swish-e 2.4.2
+        Added 'clearcache' feature to sman-update & documented
+        Always name sman-update correctly in docs
+        Remove Stemming from default config file
+        Make sure to remove /tmp/tmpswish*.conf at end
+0.8.5  Mon Dec 29 2003
+        Fixed problem introduced in sman-defaults.conf
+0.8.4  Sun Dec 28 2003
+        Turned off stemming.
+        Added --quote option in sman to quote descriptions.
+        Added --clearcache option to sman-update.
+        Made Term::Size optional.
+        Doc touches.
+0.8.3  Sat Dec 13 2003
+        Respect terminal width in sman.
+        Bug fixes and documentation updates.
+        Use Cache::FileCache for cachedir if we can.
+        Hardcode default paths to zcat, col, and rman.
+        Added TMPDIR and DEBUGXML directives.
+0.8.2  Sun Dec 07 2003
+        Tagged correctly in CVS.
+0.8.1  Sun Dec 07 2003
+        Moved sman and sman-update to scripts/ for 
+         Mac OS X (sman & Sman/ were in same dir).
+        Modularized -V (show version) option in sman
+         and sman-update.  
+0.8.0  Thu Jun 19 2003
+        Doc changes, bug fixes.
+        Can set env vars via ENV_* config directives
+        sman:
+          By default skip repeat manpages
+          --repeat config shows repeats like before
+        sman-update:
+          Set ENV_MANWIDTH 256 in sman-defaults.conf
+          Added --begin and --number options to sman
+          Trap all stderr from child processes- 
+           show some, though.
+0.7.9  Thu Jun 19 2003
+        Touched up XML for older libxml2 libs.
+        Added RCS Id tags to more files.
+0.7.8  Tue Jun 17 2003
+        sman and sman-update:
+          show version with -V[ERSION] option
+          show verbose data with -v[erbose] option
+          use config file spec'd in --config opt if present
+          command line options are case-sensitive.
+        sman-update:
+          supports --warn opt (show manpage conversion warnings) 
+          won't write swishe index if --dryrun|-n opt present
+        Many doc changes, bug fixes, clarifications.
+0.7.7  Mon Jun 16 2003
+        Added %S, %C, %F formats to MANCMD 
+        Added TODO file.
+0.7.6  Mon Jun 16 2003
+        More docs, command line overrides config file,
+        more changes.
+0.7.5  Sun Jun 15 2003
+        Rman disabled for now. Many bug fixes.
+        First near-complete documentation.  
+0.7.4  Sat Jun 14 2003
+        First release.
+

@@ -1,0 +1,66 @@
+#$Id: TODO,v 1.20 2004/06/06 17:08:54 joshr Exp $
+
+		TODO LIST for SMAN
+		Josh Rabinowitz, 2004
+
+* Write Bundle::Sman 
+  * to install or upgrade swish-e, SWISH::API, and other pre-reqs
+  * but only at the user's request
+
+* security: 
+  * allow admin to configure user sman-update runs as:
+    add USER and GROUP directives for sman-update settings
+  * document running as low-priv user better.
+  * check config and tmp file ownership - implement _issafe()
+    change how we handle tmp files if there's a better way
+  * make taint-clean? use Safe.pm?
+  * 'watch' what we put on the command line more.
+
+* adjust for possible SETENV LANG C type needs for UTF systems
+ 
+* put information about indexing settings
+  (perhaps the whole configuration file used) 
+  in the index, or somewhere for later inspection,
+  perhaps .../[indexname].settings
+
+* arrange to have installer create complete html, ps, and pdf 
+  docfiles (if possible) on the build system
+
+* make man page parser better. 
+  * consider passing options to 'man' to avoid line wrapping
+  * recognize aliases and ".so /file/this" manpages
+
+* parse non-english, non-multibyte, non-utf8 man pages...
+  * such as those in  /usr/share/man/(cs|de|es|rt|ru)/
+
+* we need input from groff and manpage experts
+    on what makes sense on particular systems
+
+* better tests. 
+  * building a small index and searching on it. 
+    (stuffing in canned XML, and by converting man pages)
+  * converting one or more very, very common manpages (if found)
+  * fix --testfile option on sman-update
+  * check swish-e version is >= 2.4.0 or SWISH::API is > 0.00
+
+* runlock to avoid 2 sman-updates at once.
+
+* improve install:: routine in Makefile.PL to respect user's choices:
+  * like where to install sman and sman-update
+
+* consider handling .gz/.bz2 files ourselves,
+  perhaps with 'preprocess' and 'postprocess' steps
+
+* make sure tmp sman-swish-conf... files get 
+  deleted if sman-update is interrupted
+
+* group identical/related man pages ala 'whatis'
+
+* check for version of swish-e used
+
+* check man, col, etc exist before using
+
+* make XML 'most cannonical'
+
+* code cleanup
+
