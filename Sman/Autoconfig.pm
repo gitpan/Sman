@@ -3,7 +3,7 @@ use Sman::Man::Convert;
 use Storable;
 
 
-#$Id: Autoconfig.pm,v 1.4 2003/12/29 15:31:41 joshr Exp $
+#$Id: Autoconfig.pm,v 1.5 2005/06/22 11:52:59 joshr Exp $
 
 use strict;
 use warnings;
@@ -16,10 +16,11 @@ use warnings;
 # on each, XML-wise.
 	# this works for most linuxes we've tested
 	#MANCMD man %F 
-	# this works for freebsd 4.4 and Mac OS X
+	# this works for freebsd 4.4 and Mac OS X up to 10.3
 	#MANCMD man %S %C
 
-my @tries = ( 'man %F', 'man %S %C', 'zcat -f %F | man' );	
+# 'zcat -f --stdout' cats files even if they're uncompressed
+my @tries = ( 'man %F', 'man %S %C', 'zcat -f --stdout %F | man' );	
 	# these are the man commands we try
 
 sub GetBestManCommand {
@@ -32,25 +33,25 @@ sub GetBestManCommand {
 		$newconfig->SetConfigData("AUTOCONFIGURING", 1);	# internal flag
 		$converters{ $cmd } = new Sman::Man::Convert($newconfig, { nocache=>1 } );
 	}
-	my $numfiles = 10;
-	my @testfiles = ();
+	my $numfiles = 10;	# number of files to test
+	my @testfiles = ();	# the files we'll be testing
 	if (scalar(@$manfilesref) < $numfiles) { $numfiles = scalar(@$manfilesref); }
 	for (my $i=0; $i < $numfiles; $i++) {
 		push(@testfiles, $manfilesref->[ int(  $i / $numfiles * scalar(@$manfilesref) ) ] );
 	}
 
-	my %cmdwins = ();
+	my %cmdwins = ();	# hash of cmd -> sum of lengths of output for this command
 	for my $file (@testfiles) {
 		warn "Testing $file" if $smanconfig->GetConfigData("VERBOSE");;
 		my ($maxlen, $winningcmd) = (0, "");
-		for my $mancmd (keys(%converters)) {
+		for my $mancmd (keys(%converters)) {	# go through the converters
 			my ($parser, $contentref) = $converters{$mancmd}->ConvertManfile($file);
-			if (length($$contentref) > $maxlen) {
+			if (length($$contentref) > $maxlen) {	# record the largest output and its cmd
 				$maxlen = length($$contentref);
 				$winningcmd = $mancmd;
 			}
 		}
-		$cmdwins{$winningcmd}++;
+		$cmdwins{$winningcmd}++;	# whichever cmd had largest output gets a point
 	}
 	my @wins = sort { $cmdwins{$b} <=> $cmdwins{$a} } keys(%cmdwins);
 	if (scalar(@wins)) { return $wins[0]; }

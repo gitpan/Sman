@@ -1,6 +1,6 @@
 package Sman::Config; 
 
-#$Id: Config.pm,v 1.13 2003/12/12 16:51:11 joshr Exp $
+#$Id: Config.pm,v 1.14 2005/05/21 14:04:32 joshr Exp $
 
 use 5.006;
 use strict;
@@ -93,8 +93,8 @@ sub ReadDefaultConfigFile {
 		$self->ReadSingleConfigFile($_);
 		last;
 	} 
-	print "Used config file '$configfiles[0]', found '" . join(", ", @configfiles) . "'.\n" 
-		if ($verbose || $self->GetConfigData("VERBOSE")); 
+	#print "Used config file '$configfiles[0]', found '" . join(", ", @configfiles) . "'.\n" 
+	#	if ($verbose || $self->GetConfigData("VERBOSE")); 
 	if (scalar(@configfiles)) {
 		return $configfiles[0];
 	} else {

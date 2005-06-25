@@ -10,11 +10,13 @@ use Test;
 
 BEGIN { plan tests => 2 };
 
-use Sman::Man::Cache::DB_File; 
+# we don't use the DB_File cache anymore
+#use Sman::Man::Cache::DB_File; 
 ok(1); # If we made it this far, we're ok.
 
 
-my $obj = new Sman::Man::Cache::DB_File(undef); 
+# we don't use the DB_File cache anymore
+#my $obj = new Sman::Man::Cache::DB_File(undef); 
 ok(1); # If we made it this far, we're ok.  
 
 

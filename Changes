@@ -1,25 +1,36 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
-Copyright 2004 Josh Rabinowitz 
-#$Id: Changes,v 1.32 2005/01/05 19:24:43 joshr Exp $
+Copyright 2005 Josh Rabinowitz 
+#$Id: Changes,v 1.36 2005/06/22 11:50:55 joshr Exp $
 
+0.95   Sat Jun 25 2005
+		Changes for Swish-e deprecation of 'FuzzyIndexingMode Stem'
+		Changed default to use 'zcat -f --stdout', not 'zcat -f'
+		Changed -V output slightly
+		More changes to tests
+		Doc and typo fixes
+		Avoid various warnings from different perls/OSs/helper programs
 0.94   Wed Jan 05 2005 
         Renumbered versions from 0.9.x to 0.9x
         Fixed perldoc for Sman.pm 
         Prefix warnings from sman and sman-update with 'sman[-update]: '
         Have sman mention sman-update if the index file appears empty
-        Not released 
 0.9.3  Tue Jan 04 2005
         Moved perldocs from script/sman to Sman.pm
 0.9.2  Tue Jan 04 2005
         Updated README to mention sman's --extract option
+        Updated Usage in README and sman
+        Change example in sman docs to use --rank instead of -r
+        Show total hits and less about config files in sman -v
         Added SWISH-E WordCharacters, BeginCharacters, and EndCharacters
-         settings to sman-default.conf so that (for example) mod_perl and 
+         settings to sman-default.conf so that underscores and colons are
+         accepted as word characters, so (for example) mod_perl and 
          Apache::Test are each indexed as single words
         use length(content) & 'use bytes' instead of pack() 
 		Changed tests to succeed even if there is no /usr/local/lib/swish-e/ directory
 0.9.1  Sun Jun 06 2004
         Updated README to reflect current output of 'sman -h'
+        First Sman release on CPAN
 0.9.0  Sun Jun 06 2004
         sman: added --extract option, which shows extract of manpage,
          use ResultPropertyString() to avoid exceptions, 

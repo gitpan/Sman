@@ -1,13 +1,13 @@
 package Sman::Man::Cache::FileCache;
 
-#$Id: FileCache.pm,v 1.4 2005/01/05 18:46:18 joshr Exp $
+#$Id: FileCache.pm,v 1.5 2005/03/01 19:09:07 joshr Exp $
 
 use Cache::FileCache;
 
 use base 'Sman::Man::Cache';
 use fields qw( filecache );
 
-# pass a dir to store the DB_File in
+# pass a dir to store the cache data in
 sub new {
    my $class = shift;
 	my $dir = shift;

@@ -2,13 +2,12 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.21 2004/06/06 17:08:54 joshr Exp $
+#$Id: Util.pm,v 1.24 2005/06/22 11:52:59 joshr Exp $
 
 use strict;
 use warnings;
 use Config;	# to get perl version string
 use lib '/usr/local/lib/swish-e/perl';
-use SWISH::DefaultHighlight; 
 
 sub MakeXML { # output xml version of hash
    my $metas = shift;
@@ -92,23 +91,23 @@ sub GetVersionString {
 	my ($prog, $swishecmd) = @_;
 	require SWISH::API;	# for $VERSION
 	require Sman;		# for $VERSION
-	my $str = "$prog " . $Sman::VERSION;
-	#$str .=  ' using perl ' . $Config{api_versionstring} . ', SWISH::API ' . $SWISH::API::VERSION . " ";
-	$str .=  ' using perl ' . $Config{version} . ', SWISH::API ' . $SWISH::API::VERSION . " ";
+	my $str = "$prog $Sman::VERSION, using SWISH::API $SWISH::API::VERSION";
 	if ($swishecmd) {
 		my $cmd = $swishecmd . " -V";
 		my @lines = `$cmd`;
 		if (defined($lines[0])) {
 			chomp($lines[0]);
 			($lines[0] =~ / ([\d.]+)/) && ($lines[0] = "SWISH-E $1");
-			$str .= "and $lines[0]";
+			$str .= ", $lines[0]";
 		}
 	}
+	$str .=   ", and perl $Config{version}";
 	return $str;
 }
 
 
 sub ExtractSummary {
+	require SWISH::DefaultHighlight; 	# defer till now, so sman -V doesn't need SWISH::API
 	my %header = (
 		wordcharacters => q{0123456789abcdefghijklmnopqrstuvwxyz});
 				#q{╙╣╨юабцдефгхийклмнопярстужьызшэщчъ} . 
@@ -175,7 +174,7 @@ This module implements utility functions for sman-update and sman
 
 =head1 AUTHOR
 
-Copyright Josh Rabinowitz 2004
+Copyright Josh Rabinowitz 2004-2005
 
 =head1 SEE ALSO
 

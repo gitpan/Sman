@@ -1,11 +1,10 @@
 package Sman;
 
-#$Id: Sman.pm,v 1.31 2005/01/05 19:23:23 joshr Exp $
+#$Id: Sman.pm,v 1.37 2005/06/22 11:50:55 joshr Exp $
 
 require 5.006;
 use strict;
-use warnings;
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 our $SMAN_DATA_VERSION = "1.0";     # this is only relevant to Sman
 
 1;
@@ -40,7 +39,7 @@ Both sman and sman-update search for the first configuration file named sman.con
 (or specified through the --config option), then the default 
 configuration in /usr/local/etc/sman-defaults.conf will be used.
 
-NOTE: In all cases command line options take precendence over directives read from
+NOTE: In all cases command line options take precedence over directives read from
 configuration files.
 
 =head1 AUTHOR

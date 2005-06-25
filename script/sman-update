@@ -1,8 +1,8 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.26 2005/01/05 19:23:23 joshr Exp $
+# $Id: sman-update,v 1.27 2005/06/22 11:52:59 joshr Exp $
 # man indexing SWISH-E prog 
 
-# Copyright (c) Josh Rabinowitz 2004
+# Copyright (c) Josh Rabinowitz 2004-2005
 
 # A descendent of the example in the Linux Journal 
 # article "How To Index Anything".
@@ -150,11 +150,11 @@ sub main {
 		warn "** working on $f\n" if $debug;
 		my ($type, $outputref) = 
 			$converter->ConvertManfile($f); 
-		#my $size = length $$outputref;	# hm. Could this be wrong?
 
 		# next two lines are from swish-e 2.4.0's 'spider.pl':
 		# 'ugly and maybe expensive, but perhaps more portable than "use bytes"'
 		#my $bytecount = length pack 'C0a*', $$outputref;
+
 		# this fails on Redhat 9 and ES3 if LANG is not C (or LC_ALL is not C)
 		my $bytecount = length $$outputref;
 

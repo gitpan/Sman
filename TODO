@@ -1,20 +1,26 @@
-#$Id: TODO,v 1.20 2004/06/06 17:08:54 joshr Exp $
+#$Id: TODO,v 1.22 2005/06/22 11:50:55 joshr Exp $
 
 		TODO LIST for SMAN
-		Josh Rabinowitz, 2004
+		Josh Rabinowitz, 2005
 
 * Write Bundle::Sman 
   * to install or upgrade swish-e, SWISH::API, and other pre-reqs
-  * but only at the user's request
+    but only at the user's request
+
+  * deal with issue of adding /usr/local/lib to /etc/ld.config 
+    or equivalent to handle the 'shared library can't be found' test 
 
 * security: 
   * allow admin to configure user sman-update runs as:
     add USER and GROUP directives for sman-update settings
-  * document running as low-priv user better.
+  * document running as low-priv user
   * check config and tmp file ownership - implement _issafe()
-    change how we handle tmp files if there's a better way
   * make taint-clean? use Safe.pm?
-  * 'watch' what we put on the command line more.
+  * watch what we put on the command line more carefully
+
+* parse non-english, non-multibyte, non-utf8 man pages...
+  * such as those in  /usr/share/man/(cs|de|es|rt|ru)/
+  * perhaps make a separate index for each language 
 
 * adjust for possible SETENV LANG C type needs for UTF systems
  
@@ -29,9 +35,6 @@
 * make man page parser better. 
   * consider passing options to 'man' to avoid line wrapping
   * recognize aliases and ".so /file/this" manpages
-
-* parse non-english, non-multibyte, non-utf8 man pages...
-  * such as those in  /usr/share/man/(cs|de|es|rt|ru)/
 
 * we need input from groff and manpage experts
     on what makes sense on particular systems
@@ -54,6 +57,7 @@
 * make sure tmp sman-swish-conf... files get 
   deleted if sman-update is interrupted
 
+OUTPUT
 * group identical/related man pages ala 'whatis'
 
 * check for version of swish-e used

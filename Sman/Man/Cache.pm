@@ -1,6 +1,6 @@
 package Sman::Man::Cache; # has two subclasses:
 
-#$Id: Cache.pm,v 1.1 2003/12/28 15:01:08 joshr Exp $
+#$Id: Cache.pm,v 1.2 2005/03/01 19:09:07 joshr Exp $
 
 use fields qw( none );
 
@@ -43,7 +43,7 @@ Sman::Man::Cache - 'Virtual base class' for converted manpages cache
 =head1 SYNOPSIS
 
   This module provides an interface for subclasses, namely,
-  Sman::Man::Cache::DB_File.
+  Sman::Man::Cache::DB_File and Sman::Man::Cache::FileCache
     
 =head1 DESCRIPTION
 
@@ -56,7 +56,7 @@ Josh Rabinowitz
     
 =head1 SEE ALSO
             
-L<sman-update>, L<Sman::Man::Convert>, L<sman.conf>
+L<sman-update>, L<Sman::Man::Convert>, L<Sman::Man::Cache::FileCache>, L<sman.conf>
         
 =cut    
 

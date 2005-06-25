@@ -1,8 +1,12 @@
 package Sman::Man::Cache::DB_File;
+#this is no longer used, and is commented out so we don't require DB_File
 
-#$Id: DB_File.pm,v 1.2 2003/12/29 15:31:41 joshr Exp $
+1;
 
-use DB_File;
+__END__
+
+#$Id: DB_File.pm,v 1.3 2005/03/01 19:09:07 joshr Exp $
+
 
 
 #@ISA = qw( Sman::Man::Cache );
@@ -11,6 +15,7 @@ use fields qw( dbfile );
 
 # pass a filename to store the DB_File in
 sub new {
+	require DB_File;
    my $class = shift;
 	my $file = shift;
    my $self = fields::new($class);

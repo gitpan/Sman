@@ -1,4 +1,4 @@
-#$Id: Makefile.PL,v 1.21 2005/01/05 18:46:18 joshr Exp $
+#$Id: Makefile.PL,v 1.22 2005/03/01 19:09:07 joshr Exp $
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -17,7 +17,6 @@ WriteMakefile(
 						Term::Size => 0.00, 
 						Cache::Cache => 0.00,
 						Digest::MD5 => 0.00,
-						#DB_File	=> 0.00
 					},
 	($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		( ABSTRACT_FROM => 'Sman.pm', # retrieve abstract from module

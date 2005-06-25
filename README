@@ -57,7 +57,8 @@ Searching the man page index with sman:
 	The sman command is fairly simple. As its help output says:
 
 	Usage: sman [--max=#] [--rank] [--number] [--index='index'] 
-				[--file] [--help] searchwords
+				[--file] [--help] [--repeats] [--begin=#'] [--config=file]
+				[--quote='"'] [--verbose] [--VERSION] searchwords
 	Ranked freetext searches on manpages.
 	Options:
 	  --max=#:                limit number of results, default 20
