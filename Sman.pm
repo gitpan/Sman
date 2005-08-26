@@ -1,11 +1,11 @@
 package Sman;
 
-#$Id: Sman.pm,v 1.37 2005/06/22 11:50:55 joshr Exp $
+#$Id: Sman.pm,v 1.47 2005/08/26 20:06:58 joshr Exp $
 
 require 5.006;
 use strict;
-our $VERSION = '0.95';
-our $SMAN_DATA_VERSION = "1.0";     # this is only relevant to Sman
+our $VERSION = '0.96';
+our $SMAN_DATA_VERSION = "1.1";     # this is only relevant to Sman
 
 1;
 __END__

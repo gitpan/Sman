@@ -10,6 +10,7 @@ use Test;
 BEGIN { plan tests => 1 };
 
 #use SWISH::API;
+# we should check for SWISH::API, and skip the test if not found
 
 ok(1); # If we made it this far, we're ok.
 

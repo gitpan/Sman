@@ -1,5 +1,5 @@
 package Sman::Man::Convert;
-#$Id: Convert.pm,v 1.30 2004/06/06 17:08:54 joshr Exp $
+#$Id: Convert.pm,v 1.32 2005/08/23 23:22:03 joshr Exp $
 
 use strict;
 use warnings;
@@ -132,8 +132,10 @@ sub ConvertManfileManually {   # do it manually, if we can
 	warn "** Couldn't figure out cmd for $file" if ($warn && $cmd eq $file);
 	warn "** Couldn't figure out section for $file" if ($warn && $sec eq "");
 	if ($sec =~ /^n$/i) { $sec = ""; }	
-		# section 'n' doesn't work on osx or linux, but tk installs in
-		# places like /sw/share/man/mann/wm.n. So we ignore section 'n'.
+		# section 'n' doesn't work on some versions of osx (pre-10.4) and linux, but tk 
+		# installs in places like /sw/share/man/mann/wm.n. So we ignore section 'n'.
+		# hm, now section 'n' works (ala 'man n wm'). Apparently we should autoprobe
+		# the features of the local man command... (sigh)
 	$man =~ s/%F/'$file'/;
 	$man =~ s/%C/'$cmd'/;
 	$man =~ s/%S/'$sec'/;
@@ -167,20 +169,20 @@ sub ConvertManfileManually {   # do it manually, if we can
 	my ($line1, $lineM) = (shift(@lines) || "", ""); 
 
 	# parse manpage into sections
-	for(@lines) {
-		s/\s+$//;	# remove trailing ws
-		s/\s+/ /;	# replace multiple ws
-		$_ .= "\n";
-		next if (!defined($_) || /^\s*$/);	# skip ws
-      $line1 = $_ if $line1 =~ /^\s*$/;
-      $manpage .= $lineM = $_;
-      if (s/^(\w(\s|\w)+)// || s/^\s*(NAME)//i){
+	for my $l (@lines) {
+		$l =~ s/\s+$//;	# remove trailing ws
+		$l =~ s/\s+/ /;	# replace multiple ws
+		$l .= "\n";
+		next if (!defined($l) || $l =~ /^\s*$/);	# skip ws
+		$line1 = $l if $line1 =~ /^\s*$/;
+		$manpage .= $lineM = $l;
+		if ($l =~ s/^(\w(\s|\w)+)// || $l =~ s/^\s*(NAME)//i){
 			chomp( my $sectitle = $1 );  # section title
 			$h{$cur_section} .= $cur_content;
 			$cur_content = "";
 			$cur_section = $sectitle; # new section name
       }
-      $cur_content .= $_ unless /^\s*$/;
+      $cur_content .= $l unless $l =~ /^\s*$/;
    } 
    $h{$cur_section} .= $cur_content;   
 

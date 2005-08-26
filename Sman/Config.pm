@@ -1,6 +1,6 @@
 package Sman::Config; 
 
-#$Id: Config.pm,v 1.14 2005/05/21 14:04:32 joshr Exp $
+#$Id: Config.pm,v 1.17 2005/08/26 19:45:40 joshr Exp $
 
 use 5.006;
 use strict;
@@ -42,7 +42,7 @@ sub SetConfigData {
 	for (my $i=0; $i < scalar(@ {$self->{conf}}); $i++ ) {
 		if (uc($self->{conf}->[$i]->[0]) eq uc($directive)) { 
 			warn "Clobbering previous setting for '$directive'\n" 
-				if defined($self->{verbose});
+				if defined($self->{verbose});	# there is no self->{verbose}. Why no error?
 			$self->{conf}->[$i]->[1] = $data;
 			return $data;
 		}
@@ -52,7 +52,8 @@ sub SetConfigData {
 	return $data;
 }
 
-# (in that order)
+# this returns only the first one found in the path
+#  $Bin/sman.conf, ~/.sman.conf, /usr/local/etc/sman.conf, /etc/sman.conf
 sub FindDefaultConfigFile {
 	my $self = shift;
 	my (@dirs) = $self->_getconfigdirs();
@@ -81,7 +82,7 @@ sub FindConfigFiles {
 	return @configs;
 }
 
-# we pass verbose here because it could be that ther verbose setting is overridden from above
+# we pass verbose here because it could be that the user's verbose setting is overridden from above
 # returns the name of the file read, or "" if none found.
 sub ReadDefaultConfigFile {
 	my ($self, $verbose) = @_; 
@@ -107,7 +108,7 @@ sub ReadDefaultConfigFile {
 sub ReadSingleConfigFile {
 	my ($self, $file) = @_;
 	my $prevline;
-	if (!open(FILE, "<" . "$file")) {
+	if (!open(FILE, "< $file")) {
 		die "Couldn't open $file: $!";
 	} else {
 		while(defined(my $line = <FILE>)) {	
@@ -120,7 +121,7 @@ sub ReadSingleConfigFile {
 				$prevline = $line;	# record it 
 			} else {						# else parse it
 				next if $line =~ /^\s*$/;	# empty line
-				next if $line =~ /\s*#/;	# a comment
+				next if $line =~ /^\s*#/;	# a comment
 				$line =~ s/^\s+//;			# strip leading ws
 				my ($directive, $value) = split(/\s+/, $line, 2);
 				if (defined($directive) && $directive && defined($value)) {
@@ -128,7 +129,7 @@ sub ReadSingleConfigFile {
 				}
 			}
 		} 
-		close(FILE) || die "Couldn't close $_/sman.conf: $!"; 
+		close(FILE) || die "Couldn't close $file: $!"; 
 	}
 	return $file;
 }
@@ -174,13 +175,11 @@ sub SetEnvironmentVariablesFromConfig
 }
 
 sub _getconfigdirs {
-	my (@dirs, @configs) = ( $Bin );
+	my (@dirs, @configs) = ( $Bin );	# From FindBin
 	if (defined($ENV{HOME})) { push(@dirs, $ENV{HOME}); }
 	push(@dirs, qw(/etc/ /usr/local/etc/));
 	return @dirs;
 }
-# this returns only the first one found in the path
-#  $Bin/sman.conf, ~/.sman.conf, /usr/local/etc/sman.conf, /etc/sman.conf
 
 sub _issafe {
 	my ($self, $filename) = @_;

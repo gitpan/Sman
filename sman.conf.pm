@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.12 2004/06/06 17:08:54 joshr Exp $
+#$Id: sman.conf.pm,v 1.13 2005/08/23 23:11:21 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
@@ -40,7 +40,7 @@ The directives currently understood in an sman configuration file are:
 
 =head2 COLCMD
 
-a program is used to strip out backspaces and 
+A program that is used to strip out backspaces and 
 such from the MANCMD output. If undefined, defaults
 to 'col -b'
 
@@ -48,13 +48,13 @@ to 'col -b'
 
 =head2 MANCMD
 
-Program that manually converts the troff to ASCII. For 'manual' parsing.
-Absencse of a MANCMD directive, or the setting AUTOCONFIG, causes
-sman to try to ascertain the best man command on its own.
-MANCMD understand a few format sequences that are used to specify
+Program that first converts the troff to ASCII. 
+Absence of a MANCMD directive, or the setting AUTOCONFIG, causes
+sman-update to try to ascertain the best man command on its own.
+MANCMD understands a few format sequences that are used to specify
 how to get man to convert your manfiles on your system.  The format sequences 
 currently understood are:
-  %F   the full pathname of the man file (IE, /usr/share/man/man1/ls.1.gz)
+  %F   the full pathname of the man file (ie, /usr/share/man/man1/ls.1.gz)
   %C   the command name (ie, ls)
   %S   the section (ie, 1 or 3pm)
 
@@ -66,9 +66,8 @@ or
 
 Also note that if you have a custom mechanism to translate
 man files into XML, you can use it like this: 
-  Example: MANCMD zcat -f %F | rman -f SGML
-(NOTE: This is not well tested! Also, note that rman-3.2 works, 
-but rman-3.1 [which ships with OSX and other OS's] does not!)
+
+  Example: MANCMD zcat --stdout -f %F | myprog
 
 =head2 SWISHECMD
 	
@@ -88,7 +87,7 @@ where to put various temporary files. Defaults to /tmp.
 =head2 TITLEALIASES, SECALIASES, DESCALIASES
 
 Aliases for the XML tags we expect. These are in case an external program
-(say, rman) returns tags different from what we expect.
+returns tags different from what we expect.
 
 	Examples:
 	TITLEALIASES refentrytitle

@@ -3,7 +3,7 @@ use Sman::Man::Convert;
 use Storable;
 
 
-#$Id: Autoconfig.pm,v 1.5 2005/06/22 11:52:59 joshr Exp $
+#$Id: Autoconfig.pm,v 1.7 2005/08/26 16:22:53 joshr Exp $
 
 use strict;
 use warnings;
@@ -15,13 +15,16 @@ use warnings;
 # representatives, and see which man command works best 
 # on each, XML-wise.
 	# this works for most linuxes we've tested
-	#MANCMD man %F 
+	#MANCMD man -c %F 
 	# this works for freebsd 4.4 and Mac OS X up to 10.3
-	#MANCMD man %S %C
+	#MANCMD man -c %S %C
 
-# 'zcat -f --stdout' cats files even if they're uncompressed
-my @tries = ( 'man %F', 'man %S %C', 'zcat -f --stdout %F | man' );	
 	# these are the man commands we try
+my @tries = ( 'man -c %F', 'man -c %S %C', 'cat %F | gunzip -f --stdout | man -c' );	
+	# man -c means to reparse manpage input
+	# gunzip -f means just cat it if it's not compressed
+	# gunzip --stdout means put the output to stdout (I think this is the default)
+
 
 sub GetBestManCommand {
 	my ($smanconfig, $manfilesref) = @_;

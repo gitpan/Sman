@@ -2,7 +2,7 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.24 2005/06/22 11:52:59 joshr Exp $
+#$Id: Util.pm,v 1.26 2005/08/21 17:22:27 joshr Exp $
 
 use strict;
 use warnings;
@@ -87,6 +87,13 @@ sub WriteFile {
 	}
 }
 
+sub GetIndexDescriptionString {
+	my ($index) = @_;
+	my $indexmodtime = (stat($index))[9];
+	return sprintf("Using index %s, updated %s\n", 
+		$index, scalar(localtime( $indexmodtime ) ) );
+}
+
 sub GetVersionString {
 	my ($prog, $swishecmd) = @_;
 	require SWISH::API;	# for $VERSION
@@ -138,6 +145,7 @@ sub ExtractSummary {
 	$str = substr($str, 0, $width-3) . "..." if length($str) > $width;
 	return $str; 
 }
+
 
 1;
 
