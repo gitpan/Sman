@@ -1,12 +1,11 @@
 #!/usr/bin/perl -w
-# $Id: sman,v 1.40 2005/08/26 19:45:28 joshr Exp $ 
+# $Id: sman,v 1.46 2005/08/29 16:10:07 joshr Exp $ 
 # ranked, enhanced 'apropos' emulator
 use strict; 
 use warnings;
 
 use Getopt::Long qw(:config no_ignore_case);
 use Sman::Util;	# for $VERSION
-use SWISH::API;
 use Sman::IndexVersion;
 use FindBin qw($Bin); 
 use Sman::Config;
@@ -23,6 +22,7 @@ my $repeatshow = 0;
 my $quote = "";	# no quoting
 my $extractshow;	# do we show extract of text?
 my $digestshow;		# do we show the digest?
+
 
 GetOptions( "max=i"   => \$max, 
             "index=s" => \$index,
@@ -81,6 +81,12 @@ unless($index) {
 unless (-f $index || $index =~ m!/!) {
 	$index = $Bin . "/" . $index;
 }
+if ($help) {	# the search comes in through @ARGV
+	print Usage();
+	exit(0);
+} 
+Sman::Util::CheckSwisheVersion();
+
 if ($versionshow) {	# move this to Sman/Util.pm ?
 	$|++;
 	my $str = Sman::Util::GetVersionString("sman",
@@ -89,18 +95,14 @@ if ($versionshow) {	# move this to Sman/Util.pm ?
 	print Sman::Util::GetIndexDescriptionString( $index || "/dev/null");
 	exit(0);
 }
-if ($help || scalar(@ARGV) == 0) {	# the search comes in through @ARGV
-	print Usage();
-	exit(0);
-} 
 
-my $index_versions = new Sman::IndexVersion( $index );
+my $index_versions = new Sman::IndexVersion( $smanconfig );
 my $versions_hashref = $index_versions->get_versions();
+#if ($debug) { print Data::Dumper::Dumper( $versions_hashref ); }
 my ($rankscheme1_ok) = 
-	(exists($versions_hashref->{SMAN_DATA_VERSION}) && $versions_hashref->{SMAN_DATA_VERSION});
+	(exists($versions_hashref->{SMAN_DATA_VERSION}) && 
+		$versions_hashref->{SMAN_DATA_VERSION});
 # will have values like 'VERSION' and 'SMAN_DATA_VERSION'
-$index_versions->set_versions( $versions_hashref );	# set them back
-
 
 if ($verbose) {
 	print Sman::Util::GetIndexDescriptionString( $index || "/dev/null" );
@@ -116,6 +118,7 @@ my $query = join(" ", @ARGV);
 my $handle;
 my $results;
 eval { 
+	require SWISH::API;	# defer to here so we can give a nicer error message
 	$handle = SWISH::API->new($index); 
 	check_for_swishe_error($handle);
 	if ($rankscheme1_ok) {
@@ -144,6 +147,7 @@ if ($@) {
 my (%seen, %digests);
 my $numrepeats = 0;
 my @toshow = ();
+die "sman: Error: can't get results from swish-e. Bad index?\n" unless $results;
 while ( my $res = $results->NextResult() ) {
 	check_for_swishe_error($handle);
 	$cnt++;
@@ -222,7 +226,7 @@ sub check_for_swishe_error {
 		if ($errstr =~ /is empty/) {
 			$extra = "(perhaps you need to run sman-update?)";
 		}
-	   warn "sman: Error: ",  join(": ", "'" . $handle->ErrorString() . "'", $extra) .  "\n";
+		die "sman: Error: ",  join(": ", "'" . $handle->ErrorString() . "'", $extra) .  "\n";
 	} 
 }
 
@@ -280,7 +284,7 @@ Sman is a Searcher for Man pages.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

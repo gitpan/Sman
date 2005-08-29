@@ -2,12 +2,23 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.26 2005/08/21 17:22:27 joshr Exp $
+#$Id: Util.pm,v 1.31 2005/08/26 23:12:21 joshr Exp $
 
 use strict;
 use warnings;
 use Config;	# to get perl version string
 use lib '/usr/local/lib/swish-e/perl';
+
+# this checks if the SWISH::API is recent enough to have 
+# the features we use
+sub CheckSwisheVersion {
+	eval {
+		require SWISH::API;
+	};
+	die "$0: Can't run: need SWISH::API >= 0.03\n" if $@;
+	die "$0: Can't run: need SWISH::API >= 0.03\n"
+		unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03);
+}
 
 sub MakeXML { # output xml version of hash
    my $metas = shift;
@@ -90,8 +101,8 @@ sub WriteFile {
 sub GetIndexDescriptionString {
 	my ($index) = @_;
 	my $indexmodtime = (stat($index))[9];
-	return sprintf("Using index %s, updated %s\n", 
-		$index, scalar(localtime( $indexmodtime ) ) );
+	return sprintf("Using index %s, %s\n", 
+		$index, $indexmodtime ? "updated " . scalar(localtime( $indexmodtime ) ) : "(index not found)" );
 }
 
 sub GetVersionString {
@@ -182,7 +193,7 @@ This module implements utility functions for sman-update and sman
 
 =head1 AUTHOR
 
-Copyright Josh Rabinowitz 2004-2005
+Copyright Josh Rabinowitz 2004-2005 <joshr>
 
 =head1 SEE ALSO
 

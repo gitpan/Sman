@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.13 2005/08/23 23:11:21 joshr Exp $
+#$Id: sman.conf.pm,v 1.14 2005/08/26 21:40:23 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
@@ -131,7 +131,7 @@ documentation.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

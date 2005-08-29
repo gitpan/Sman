@@ -5,7 +5,7 @@ package Sman::Man::Cache::DB_File;
 
 __END__
 
-#$Id: DB_File.pm,v 1.3 2005/03/01 19:09:07 joshr Exp $
+#$Id: DB_File.pm,v 1.4 2005/08/26 21:40:23 joshr Exp $
 
 
 
@@ -70,7 +70,7 @@ Sman::Man::Convert.
     
 =head1 AUTHOR
     
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
     
 =head1 SEE ALSO
             

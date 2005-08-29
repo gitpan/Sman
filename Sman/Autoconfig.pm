@@ -3,7 +3,7 @@ use Sman::Man::Convert;
 use Storable;
 
 
-#$Id: Autoconfig.pm,v 1.7 2005/08/26 16:22:53 joshr Exp $
+#$Id: Autoconfig.pm,v 1.10 2005/08/26 21:40:23 joshr Exp $
 
 use strict;
 use warnings;
@@ -21,6 +21,8 @@ use warnings;
 
 	# these are the man commands we try
 my @tries = ( 'man -c %F', 'man -c %S %C', 'cat %F | gunzip -f --stdout | man -c' );	
+	# the last option above does not work, so it's been removed. (it needs tmp file in the middle.)
+	# we leave it in anyway, it won't get used if doesn't work
 	# man -c means to reparse manpage input
 	# gunzip -f means just cat it if it's not compressed
 	# gunzip --stdout means put the output to stdout (I think this is the default)
@@ -83,7 +85,7 @@ files.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

@@ -1,7 +1,7 @@
-#$Id: TODO,v 1.27 2005/08/26 20:00:44 joshr Exp $
+#$Id: TODO,v 1.29 2005/08/26 23:13:25 joshr Exp $
 
 		TODO LIST for SMAN
-		Josh Rabinowitz, 2005 
+		Josh Rabinowitz, 2005  <joshr>
 
 BUILD AND INSTALL
   * Write Bundle::Sman 
@@ -41,6 +41,8 @@ SECURITY
   * watch what we pass to the shell more carefully
 
 PARSING AND LANGUAGES
+  * autoprobe for weird man abilities: Q: will this work? 'man n xxx'
+    A: On more modern OS's, yes, but not in Days Of Yore (on some systems) 
   * why do we get man pages in section '0p' on FC4?
   * parse non-english, non-multibyte, non-utf8 man pages...
     such as those in  /usr/share/man/(cs|de|es|rt|ru)/

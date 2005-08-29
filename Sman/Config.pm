@@ -1,6 +1,6 @@
 package Sman::Config; 
 
-#$Id: Config.pm,v 1.17 2005/08/26 19:45:40 joshr Exp $
+#$Id: Config.pm,v 1.18 2005/08/26 21:40:23 joshr Exp $
 
 use 5.006;
 use strict;
@@ -214,7 +214,7 @@ file called 'sman-defaults.conf' in the same list of directories is used.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

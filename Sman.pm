@@ -1,11 +1,12 @@
 package Sman;
 
-#$Id: Sman.pm,v 1.47 2005/08/26 20:06:58 joshr Exp $
+#$Id: Sman.pm,v 1.57 2005/08/29 16:10:00 joshr Exp $
 
 require 5.006;
 use strict;
-our $VERSION = '0.96';
-our $SMAN_DATA_VERSION = "1.1";     # this is only relevant to Sman
+our $VERSION = '0.97';
+our $SMAN_DATA_VERSION = "1.2";     # this is only relevant to Sman
+	# 1.2 enables section N
 
 1;
 __END__
@@ -44,7 +45,7 @@ configuration files.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

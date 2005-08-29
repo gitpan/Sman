@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.35 2005/08/26 19:52:48 joshr Exp $
+# $Id: sman-update,v 1.39 2005/08/26 23:02:08 joshr Exp $
 # man indexing SWISH-E prog 
 
 # Copyright (c) Josh Rabinowitz 2004-2005
@@ -55,6 +55,8 @@ sub main {
 	my $index; 
 	my $showversion = ""; 
 	my $clearcache = 0;
+	my $max = 0;	# set to non-zero for testing that many files
+	my $progress = 0;	# like rsync, kind of
 
 	GetOptions( "help"        => \$help, 
 					"configfile"  => \$configfile,
@@ -71,6 +73,8 @@ sub main {
 					"zcat=s"      => \$zcat,
 					"swishe=s"      => \$swishe,
 					"testfile=s"  => \$testfile,	# run just this file through. 
+					"max=i"      => \$max,
+					"progress!"      => \$progress,
 	) || die "sman-update: Problem reading command line options.\n" . Usage(); 
 
 	if ($help) {
@@ -78,6 +82,7 @@ sub main {
 		exit(0);
 	} 
 
+	Sman::Util::CheckSwisheVersion();
 	my $smanconfig = new Sman::Config(); 
 	if ($configfile) { 
 		#@configfiles = ($self->FindDefaultConfigFile(), $configfile);
@@ -147,11 +152,11 @@ sub main {
 	unless($dryrun) {
 		open(SWISHE, $cmd) || die "sman-update: couldn't open '$cmd'"; 
 	}
-	my $cnt = 0;
-	print "sman-update: " . scalar @files . " man pages to index...\n" if $verbose; 
-	for my $f (@files) {
-		#warn "** processing $cnt\n" unless ++$cnt % 20;
-		warn "** working on $f\n" if $debug;
+	print "sman-update: " . scalar @files . " man pages to index...\n" if $verbose || $progress; 
+	for (my $i=0; $i < scalar(@files) && ($max==0 || $i < $max); $i++) {
+		my $f = $files[$i];
+		print "** processing $i\n" if ($progress && $i % 500 == 0) ;
+		print "** working on $f\n" if $debug;
 		my ($type, $outputref) = 
 			$converter->ConvertManfile($f); 
 
@@ -177,7 +182,7 @@ sub main {
 		close(SWISHE) || die "sman-update: Failure closing pipe to $swishe";
 
 		# update the sman.index.version file
-		my $index_versions = new Sman::IndexVersion( $index );
+		my $index_versions = new Sman::IndexVersion( $smanconfig );
 		$index_versions->set_versions( 
 			{ VERSION=> $Sman::VERSION, SMAN_DATA_VERSION=>$Sman::SMAN_DATA_VERSION }
 		);
@@ -271,7 +276,7 @@ thing that needs to be done to allow this to happen is to chown the directory
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

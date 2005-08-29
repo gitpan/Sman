@@ -1,5 +1,5 @@
 package Sman::Man::Find; 
-#$Id: Find.pm,v 1.8 2003/12/29 15:31:41 joshr Exp $
+#$Id: Find.pm,v 1.9 2005/08/26 21:40:23 joshr Exp $
 
 use File::Find; 
 use strict;
@@ -40,7 +40,7 @@ manpath.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

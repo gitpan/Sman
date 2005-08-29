@@ -1,6 +1,6 @@
 package Sman::Man::Cache::FileCache;
 
-#$Id: FileCache.pm,v 1.5 2005/03/01 19:09:07 joshr Exp $
+#$Id: FileCache.pm,v 1.6 2005/08/26 21:40:23 joshr Exp $
 
 use Cache::FileCache;
 
@@ -70,7 +70,7 @@ Uses a Cache::FileCache to store raw data for use by Sman::Man::Convert.
 
 =head1 AUTHOR
     
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
     
 =head1 SEE ALSO
             

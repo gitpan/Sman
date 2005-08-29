@@ -1,8 +1,15 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
-Copyright 2005 Josh Rabinowitz 
-#$Id: Changes,v 1.48 2005/08/26 20:06:58 joshr Exp $
+Copyright 2005 Josh Rabinowitz  <joshr>
+#$Id: Changes,v 1.55 2005/08/29 16:14:05 joshr Exp $
 
+0.97   Mon Aug 29 2005
+        Check that a sufficient SWISH::API version is installed,
+          handle absence better
+        Fixed Sman::IndexVersion, it now uses Sman::Config
+        Handle errors in sman better
+        Added --progress and --max options to sman-update
+        Documentation updates
 0.96   Fri Aug 26 2005
         Choose number of results to show based on rows returned from Term::Size
           (to override use sman's --max=N command line option)

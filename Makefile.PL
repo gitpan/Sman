@@ -1,4 +1,4 @@
-#$Id: Makefile.PL,v 1.22 2005/03/01 19:09:07 joshr Exp $
+#$Id: Makefile.PL,v 1.23 2005/08/29 16:00:18 joshr Exp $
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -13,7 +13,7 @@ WriteMakefile(
 						File::Temp => 0.00, 
 						FindBin => 0.00, 
 						FreezeThaw => 0.00,
-						SWISH::API => 0.00, 
+						SWISH::API => 0.03, 
 						Term::Size => 0.00, 
 						Cache::Cache => 0.00,
 						Digest::MD5 => 0.00,

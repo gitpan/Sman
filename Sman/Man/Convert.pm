@@ -1,5 +1,5 @@
 package Sman::Man::Convert;
-#$Id: Convert.pm,v 1.32 2005/08/23 23:22:03 joshr Exp $
+#$Id: Convert.pm,v 1.34 2005/08/26 23:11:26 joshr Exp $
 
 use strict;
 use warnings;
@@ -131,11 +131,11 @@ sub ConvertManfileManually {   # do it manually, if we can
 	my $sec = $1 || $3 || "";
 	warn "** Couldn't figure out cmd for $file" if ($warn && $cmd eq $file);
 	warn "** Couldn't figure out section for $file" if ($warn && $sec eq "");
-	if ($sec =~ /^n$/i) { $sec = ""; }	
+	#if ($sec =~ /^n$/i) { $sec = ""; }	
 		# section 'n' doesn't work on some versions of osx (pre-10.4) and linux, but tk 
 		# installs in places like /sw/share/man/mann/wm.n. So we ignore section 'n'.
-		# hm, now section 'n' works (ala 'man n wm'). Apparently we should autoprobe
-		# the features of the local man command... (sigh)
+		# hm, now, in 10.4, section 'n' works (ala 'man n wm'). Apparently we should 
+		# autoprobe the features of the local man command... (sigh... added to TODO list)
 	$man =~ s/%F/'$file'/;
 	$man =~ s/%C/'$cmd'/;
 	$man =~ s/%S/'$sec'/;
@@ -248,7 +248,7 @@ the man pages from ASCII into XML.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

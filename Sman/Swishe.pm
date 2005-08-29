@@ -1,6 +1,6 @@
 package Sman::Swishe;
 
-#$Id: Swishe.pm,v 1.13 2004/06/06 17:08:54 joshr Exp $
+#$Id: Swishe.pm,v 1.14 2005/08/26 21:40:23 joshr Exp $
 
 use strict;
 use warnings;
@@ -101,7 +101,7 @@ swish-e to build the sman index with.
 
 =head1 AUTHOR
 
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
 
 =head1 SEE ALSO
 

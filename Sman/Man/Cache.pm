@@ -1,6 +1,6 @@
 package Sman::Man::Cache; # has two subclasses:
 
-#$Id: Cache.pm,v 1.2 2005/03/01 19:09:07 joshr Exp $
+#$Id: Cache.pm,v 1.4 2005/08/26 21:40:23 joshr Exp $
 
 use fields qw( none );
 
@@ -36,6 +36,7 @@ sub set {
 # this uses Cache::FileCache
 
 1;
+
 =head1 NAME
 
 Sman::Man::Cache - 'Virtual base class' for converted manpages cache
@@ -52,7 +53,7 @@ Sman::Man::Cache - 'Virtual base class' for converted manpages cache
     
 =head1 AUTHOR
     
-Josh Rabinowitz
+Josh Rabinowitz <joshr>
     
 =head1 SEE ALSO
             

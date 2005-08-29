@@ -1,7 +1,7 @@
 # http://module-build.sourceforge.net/META-spec.html
 #XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
 name:         Sman
-version:      0.96
+version:      0.97
 version_from: Sman.pm
 installdirs:  site
 requires:
@@ -12,7 +12,7 @@ requires:
     File::Temp:                    0
     FindBin:                       0
     FreezeThaw:                    0
-    SWISH::API:                    0
+    SWISH::API:                    0.03
     Term::Size:                    0
 
 distribution_type: module
