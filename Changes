@@ -1,8 +1,12 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
 Copyright 2005 Josh Rabinowitz  <joshr>
-#$Id: Changes,v 1.55 2005/08/29 16:14:05 joshr Exp $
+#$Id: Changes,v 1.58 2005/08/30 16:28:17 joshr Exp $
 
+0.98   Tue Aug 30 2005
+        bugfix: added Sman/IndexVersion.pm to MANIFEST (thanks to testers!)
+        added t/34_SmanIndexVersion.t to test Sman::IndexVersion
+        TODO modified
 0.97   Mon Aug 29 2005
         Check that a sufficient SWISH::API version is installed,
           handle absence better

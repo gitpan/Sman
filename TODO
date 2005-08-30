@@ -1,4 +1,4 @@
-#$Id: TODO,v 1.29 2005/08/26 23:13:25 joshr Exp $
+#$Id: TODO,v 1.31 2005/08/30 17:10:36 joshr Exp $
 
 		TODO LIST for SMAN
 		Josh Rabinowitz, 2005  <joshr>
@@ -17,13 +17,11 @@ TESTS
     (stuffing in canned XML, and by converting man pages)
   * converting one or more very, very common manpages (if found)
   * fix --testfile option on sman-update
-  * check swish-e version is >= 2.4.0 or SWISH::API is > 0.00 
 
 RUNTIME
   * Autoprobe for arcane features of man (ie, will 'man n wm' work on OSX?)
-  * Avoid warnings from sman-update (zcat) during autoconfiguration on OSX
-    (looks for /usr/share/man/man8/flush.8.Z but it's .../man8/flush.8 )
   * runlock to avoid 2 sman-updates at once
+  * catch possible 'err: Severe index error in header' error from swish-e
 
 DOCUMENTATION 
   * write up user's guide to searching: how to search on parts, 
@@ -50,11 +48,11 @@ PARSING AND LANGUAGES
   * adjust for possible SETENV LANG C type needs for UTF systems
   * make man page parser better. 
     * rewrite wacky ASCII manpage parser to something of beauty
-    * consider passing options to 'man' to avoid line wrapping
-    * recognize aliases and manpages containing IE: ".so /file/this"
+    * get 'man' to wrap lines at more than 80 chars
+    * recognize aliases and manpages containing, i.e.: ".so /file/this"
+  * parse XML::Simple::FAQ correctly on FC1
   * we need input from groff and manpage experts
     on what makes sense on particular systems 
-  * parse XML::Simple::FAQ right on FC1
  
 INDEXING AND SEARCHING
   * preserve configuration settings (perhaps the whole configuration file used) 
@@ -66,8 +64,7 @@ INDEXING AND SEARCHING
 
 OUTPUT
   * group identical/related man pages ala 'whatis' 
-  * check for version of swish-e used 
-  * check man, col, etc exist before using 
+  * check man, col, etc. exist before using 
   * make XML 'most cannonical' 
   * code cleanup
 
