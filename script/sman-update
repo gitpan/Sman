@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.39 2005/08/26 23:02:08 joshr Exp $
+# $Id: sman-update,v 1.41 2006/04/01 22:26:47 joshr Exp $
 # man indexing SWISH-E prog 
 
 # Copyright (c) Josh Rabinowitz 2004-2005
@@ -82,7 +82,9 @@ sub main {
 		exit(0);
 	} 
 
-	Sman::Util::CheckSwisheVersion();
+	my $versionok = Sman::Util::CheckSwisheVersion();
+	die "sman-update: Need newer version of Swish-e?: $!" unless $versionok;
+
 	my $smanconfig = new Sman::Config(); 
 	if ($configfile) { 
 		#@configfiles = ($self->FindDefaultConfigFile(), $configfile);

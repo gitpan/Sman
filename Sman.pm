@@ -1,12 +1,12 @@
 package Sman;
 
-#$Id: Sman.pm,v 1.60 2005/08/30 17:11:59 joshr Exp $
+#$Id: Sman.pm,v 1.68 2006/05/02 01:54:22 joshr Exp $
 
 require 5.006;
 use strict;
-our $VERSION = '0.98';
+our $VERSION = '0.99';
 our $SMAN_DATA_VERSION = "1.2";     # this is only relevant to Sman
-	# 1.2 enables section N
+	# 1.2 enables section "N"
 
 1;
 __END__

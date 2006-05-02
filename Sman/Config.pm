@@ -1,11 +1,14 @@
 package Sman::Config; 
 
-#$Id: Config.pm,v 1.18 2005/08/26 21:40:23 joshr Exp $
+#$Id: Config.pm,v 1.19 2005/09/15 02:44:55 joshr Exp $
 
 use 5.006;
 use strict;
 use warnings;
 use FindBin qw($Bin);
+use POSIX qw(sysconf _PC_CHOWN_RESTRICTED); 	# for _isverysafe
+use Cwd;	 									# for _isverysafe
+use File::stat;	# used in _issafe()
 use fields qw( conf );
 
 # call like my $smanconfig = new Sman::Config();
@@ -58,8 +61,12 @@ sub FindDefaultConfigFile {
 	my $self = shift;
 	my (@dirs) = $self->_getconfigdirs();
 	for(@dirs) {
-		if (-e "$_/sman-defaults.conf" && $self->_issafe("$_/sman-defaults.conf") ) {
+		if (-e "$_/sman-defaults.conf") {
+			 if($self->_isverysafe("$_/sman-defaults.conf") ) {
 				return "$_/sman-defaults.conf"; 
+			} else {
+				warn "$0: Can't use $_/sman-defaults.conf: ownership not safe.\n";
+			}
 		}
 	}
 	return "";
@@ -73,7 +80,7 @@ sub FindConfigFiles {
 	my (@dirs, @configs) = $self->_getconfigdirs();
 	for(@dirs) {
 		my $f = "$_/sman.conf";
-		if (-e $f && $self->_issafe($f) ) {
+		if (-e $f && $self->_isverysafe($f) ) {
 			push(@configs, $f);
 		}
 	}
@@ -181,10 +188,47 @@ sub _getconfigdirs {
 	return @dirs;
 }
 
+#from perl cookbook "8.17. Testing a File for Trustworthiness"
 sub _issafe {
-	my ($self, $filename) = @_;
-	return 1;	# for now.
+    my ($self, $path) = @_;
+    my $info = stat($path);
+    return 0 unless $info;
+
+    # owner neither superuser nor me 
+    # the real uid is in stored in the $< variable
+    if (($info->uid != 0) && ($info->uid != $<)) {
+        return 0;
+    }
+
+    # check whether group or other can write file.
+    # use 066 to detect either reading or writing
+    if ($info->mode & 022) {   # someone else can write this
+        return 0 unless -d _;  # non-directories aren't safe
+            # but directories with the sticky bit (01000) are
+        return 0 unless $info->mode & 01000;        
+    }
+    return 1;
 }
+
+#from perl cookbook "8.17. Testing a File for Trustworthiness"
+sub _isverysafe {
+    my ($self, $path) = @_;
+    return $self->_issafe($path) if sysconf(_PC_CHOWN_RESTRICTED);
+    $path = getcwd() . '/' . $path if $path !~ m{^/};
+    do {
+        return unless $self->_issafe($path);
+        $path =~ s#([^/]+|/)$##;               # dirname
+        $path =~ s#/$## if length($path) > 1;  # last slash
+    } while length $path;
+
+    return 1;
+}
+
+
+
+
+
+
 
 1;
 __END__ 

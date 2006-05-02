@@ -1,6 +1,6 @@
 package Sman::Man::Cache::FileCache;
 
-#$Id: FileCache.pm,v 1.6 2005/08/26 21:40:23 joshr Exp $
+#$Id: FileCache.pm,v 1.7 2006/02/27 02:07:19 joshr Exp $
 
 use Cache::FileCache;
 
@@ -17,6 +17,7 @@ sub new {
 
 	if (defined($dir)) {
 		my %hash = ( 'namespace' => 'sman', 'default_expires_in' => "1 month" );
+		$^W=0;	# avoid pseudo-hash warnings on perl 5.8.0
 		$self->{filecache} = new Cache::FileCache( \%hash );
 	}
 	return $self;

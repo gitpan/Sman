@@ -1,5 +1,5 @@
 package Sman::Man::Convert;
-#$Id: Convert.pm,v 1.34 2005/08/26 23:11:26 joshr Exp $
+#$Id: Convert.pm,v 1.35 2005/09/15 02:43:06 joshr Exp $
 
 use strict;
 use warnings;
@@ -8,6 +8,7 @@ use fields qw( config cache options );
 use FreezeThaw qw( freeze thaw );
 use Compress::Zlib qw ( compress uncompress );
 use Digest::MD5 qw( md5_hex );
+use File::Temp;
 
 # call like my $converter = new Sman::Man::Convert($config);
 # or my $converter = new Sman::Man::Convert($config, { nocache=>1 } );
@@ -18,12 +19,11 @@ sub new {
 	bless ($self, $class);
 	$self->{config} = shift;	 
 	$self->{options} = shift || {};	 
-	my $cachepath = $self->{config}->GetConfigData("CACHEPATH") || "/tmp/smancache.db";
+	my $cachepath = $self->{config}->GetConfigData("CACHEPATH");
 
 	unless($self->{options}->{nocache}) {
 		eval {
 			require Sman::Man::Cache::FileCache; 
-			#$self->{cache} = new Sman::Man::Cache::DB_File ( $cachepath );
 			$self->{cache} = new Sman::Man::Cache::FileCache ( $cachepath );
 		};
 		if ($@) {
@@ -150,13 +150,15 @@ sub ConvertManfileManually {   # do it manually, if we can
 	if (!$out) {
 		return \%h;	# no vals
 	} 
-	my $tmpname = "$tmpdir/sman-man-$$.tmp";
+	#my $tmpname = "$tmpdir/sman-man-$$.tmp";
+	my ($tempfh, $tmpname) = File::Temp::tempfile( "sman-mantxt.XXXXX", DIR => $tmpdir);
 	Sman::Util::WriteFile($tmpname, \$out) || 
 		die "Couldn't write file $tmpname: $!";
 	if ($debug) {
 		print "DEBUG: $tmpname is\n" . Sman::Util::ReadFile($tmpname) . "\n"; 
 	}
 	my $colcmd = "cat $tmpname | $col ";
+
 	my ($out2, $err2) = Sman::Util::RunCommand($colcmd, $tmpdir);
 	unlink($tmpname) || warn "Couldn't unlink $tmpname: $!";
 	if (!$autoconfiguring && $config->GetConfigData("WARN") && $err2 && (!$out2 || $warn)) {

@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.14 2005/08/26 21:40:23 joshr Exp $
+#$Id: sman.conf.pm,v 1.1 2006/02/15 16:09:15 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
@@ -9,7 +9,6 @@ use strict;
 
 1;
 
-=cut
 
 =head1 NAME
 

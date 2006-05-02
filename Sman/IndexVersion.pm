@@ -3,6 +3,7 @@ use warnings;
 use strict;
 use fields qw( config );
 #use Data::Dumper; # tmp, for debugging
+#$Id: IndexVersion.pm,v 1.6 2005/08/31 16:23:03 joshr Exp $
 
 # call like my $versions = new Sman::IndexVersion( $sman_config_obj )
 # appends .version to determine the version file.

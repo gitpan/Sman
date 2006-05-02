@@ -1,8 +1,17 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
 Copyright 2005 Josh Rabinowitz  <joshr>
-#$Id: Changes,v 1.58 2005/08/30 16:28:17 joshr Exp $
+#$Id: Changes,v 1.67 2006/05/02 01:42:48 joshr Exp $
 
+0.99   Tue May 02 2006
+		Avoid warnings from sman-update for nonexistant dirs in manpath
+		Be more careful about configuration files and temp files
+        Changes for win32 under cygwin
+		Typo fixes and rewordings in docs, more TODO changes
+		Little changes to sman-defaults.conf
+		Added dependencies to Makefile.PL
+		POD error in sman.conf.pm fixed as per cpants
+		Tests added to test POD and POD coverage
 0.98   Tue Aug 30 2005
         bugfix: added Sman/IndexVersion.pm to MANIFEST (thanks to testers!)
         added t/34_SmanIndexVersion.t to test Sman::IndexVersion

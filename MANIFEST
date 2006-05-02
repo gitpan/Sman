@@ -6,7 +6,7 @@ TODO
 script/sman
 script/sman-update
 sman-defaults.conf
-sman.conf.pm
+Sman/sman.conf.pm
 Sman.pm
 Sman/Autoconfig.pm
 Sman/Config.pm

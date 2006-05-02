@@ -1,5 +1,5 @@
 package Sman::Man::Find; 
-#$Id: Find.pm,v 1.9 2005/08/26 21:40:23 joshr Exp $
+#$Id: Find.pm,v 1.11 2005/09/02 21:29:26 joshr Exp $
 
 use File::Find; 
 use strict;
@@ -9,16 +9,20 @@ use warnings;
 sub FindManFiles {  # get manfiles in MANPATH
 	my ($manpath, $matchregex) = @_;
     my @files;
-    chomp($manpath = $manpath || $ENV{MANPATH} || `manpath` || '/usr/share/man');
+    chomp($manpath ||= $ENV{MANPATH} || `manpath` || '/usr/share/man');
 
 	#$matchregex = 'man/man.*\.' unless defined $matchregex;
 
-    File::Find::find( sub { 
-      my $n = $File::Find::name;
-      push @files, $n 
-      if -f $n && $n =~ m!man/man.*\.!
-   }, split /:/, $manpath ); 
-   return @files;
+	my @dirs =  split(/:/, $manpath);
+	for my $dir (@dirs) {
+		next unless ($dir && -e $dir && (-d $dir || -l $dir));	# skip non-existent dirs
+		File::Find::find( sub { 
+		  my $n = $File::Find::name;
+		  push @files, $n 
+		  if -f $n && $n =~ m!man/man.*\.!
+	   }, $dir ); 
+	}
+	return @files;
 } 
 
 1;

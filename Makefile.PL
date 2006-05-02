@@ -1,4 +1,4 @@
-#$Id: Makefile.PL,v 1.23 2005/08/29 16:00:18 joshr Exp $
+#$Id: Makefile.PL,v 1.26 2006/02/15 16:54:32 joshr Exp $
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -8,15 +8,21 @@ WriteMakefile(
 	'EXE_FILES' => [ qw( script/sman script/sman-update ) ],	 # these go to their perl bin dir
     'VERSION_FROM'	=> 'Sman.pm', # finds $VERSION
     'PREREQ_PM'		=> { 
+						#SWISH::API => 0.03, 
+							# above commented out because
+							# on FC1 'perl Makefile.PL' complains
+							# Can't locate auto/SWISH/API/VERSION.al  if we leave it in!
 						Compress::Zlib => 0.00, 
 						File::Find => 0.00, 
 						File::Temp => 0.00, 
 						FindBin => 0.00, 
 						FreezeThaw => 0.00,
-						SWISH::API => 0.03, 
 						Term::Size => 0.00, 
 						Cache::Cache => 0.00,
 						Digest::MD5 => 0.00,
+						Cache::FileCache => 0.00,
+						Storable => 0.00,
+						POSIX => 0.00,
 					},
 	($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		( ABSTRACT_FROM => 'Sman.pm', # retrieve abstract from module

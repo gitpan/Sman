@@ -2,11 +2,12 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.31 2005/08/26 23:12:21 joshr Exp $
+#$Id: Util.pm,v 1.33 2006/03/09 17:27:14 joshr Exp $
 
 use strict;
 use warnings;
 use Config;	# to get perl version string
+use File::Temp;	# used in RunCommand()
 use lib '/usr/local/lib/swish-e/perl';
 
 # this checks if the SWISH::API is recent enough to have 
@@ -15,9 +16,16 @@ sub CheckSwisheVersion {
 	eval {
 		require SWISH::API;
 	};
-	die "$0: Can't run: need SWISH::API >= 0.03\n" if $@;
-	die "$0: Can't run: need SWISH::API >= 0.03\n"
-		unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03);
+	#die "$0: Can't run: need SWISH::API >= 0.03\n" if $@;
+	return 0 if $@;
+	#$^W = 0;
+	no strict 'vars';
+	use vars qw( $SWISH::API::VERSION );
+	unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03) {
+		$@ = "Can't run: need SWISH::API >= 0.03\n"; 
+		return 0;
+	}
+	return 1;  # it's OK
 }
 
 sub MakeXML { # output xml version of hash
@@ -63,9 +71,13 @@ sub WriteFile {
 		$tmpdir = "/tmp" unless defined $tmpdir;
 		my ($out, $err) = ("", "");
 		my $r = sprintf("%04d", rand(9999));
-		my ($outfile, $errfile) = ("$tmpdir/cmd" . $$ . "_$r.out", "$tmpdir/cmd" . $$ . "_$r.err");
+		my ($ofh, $outfile) = File::Temp::tempfile( "cmd-out.XXXXX", DIR => $tmpdir);
+		my ($efh, $errfile) = File::Temp::tempfile( "cmd-err.XXXXX", DIR => $tmpdir);
+		#my ($outfile, $errfile) = 
+		#	("$tmpdir/cmd" . $$ . "_$r.out", "$tmpdir/cmd" . $$ . "_$r.err");
+		# use two temporary filenames 
 		my $torun = "$cmd 1> $outfile 2>$errfile";
-		push(@tmpfiles, "$outfile", "$errfile");	# in case of SIG
+		push(@tmpfiles, $outfile, $errfile);	# in case of SIG
 		#print "RUNNING $torun\n";
 		system($torun);
 		if ($?) {
@@ -73,7 +85,8 @@ sub WriteFile {
 			my $signal = $? & 127;
 			my $dumped = $? & 128;
 
-			$err .= "** ERROR: exitvalue $exit";
+			$err .= "** ERROR: $torun\n";
+			$err .= "exitvalue $exit";
 			$err .= ", got signal $signal" if $signal;
 			$err .= ", dumped core" if $dumped;
 			$err .= "\n";
@@ -83,9 +96,9 @@ sub WriteFile {
 		$out .= ReadFile($outfile);
 		$err .= ReadFile($errfile);
 
-		unlink($errfile);
+		unlink($errfile) || warn "$0: couldn't unlink $errfile: $!";
 		pop(@tmpfiles);
-		unlink($outfile);
+		unlink($outfile) || warn "$0: couldn't unlink $outfile: $!";
 		pop(@tmpfiles);
 
 		return ($out, $err, $dollarquestionmark);

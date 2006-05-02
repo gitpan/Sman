@@ -1,6 +1,6 @@
 package Sman::Swishe;
 
-#$Id: Swishe.pm,v 1.14 2005/08/26 21:40:23 joshr Exp $
+#$Id: Swishe.pm,v 1.15 2005/09/15 02:44:21 joshr Exp $
 
 use strict;
 use warnings;
@@ -26,12 +26,13 @@ sub new {
 sub WriteConfigFile {
 	my $self = shift;
 	my $tmpdir = $self->{config}->GetConfigData("TMPDIR") || "/tmp";
-	my ($fh, $filename) = tempfile( "$tmpdir/sman-swish-conf.XXXXX" );
+	my ($fh, $filename) = tempfile( "$tmpdir/sman-swish-conf.XXXXX" );	
+		# this is safe. ?
 	push(@ {$self->{tempfilestounlink}}, $filename);
 		# extra work to make sure this file gets deleted.
 	my @names = $self->{config}->GetConfigNames();
 	for my $n (@names) {
-		#print "Examining $_..\n";
+		#print "Examining $n..\n";
 		if($n =~ /^SWISHE_(.+)/i) {
 			my ($name, $value) = ($1, $self->{config}->GetConfigData($n));	
 			if ($name =~ m/IndexPointer/) { 
@@ -39,7 +40,6 @@ sub WriteConfigFile {
 			}
 			print "Config: $name -> '$value'\n" if $self->{config}->GetConfigData("VERBOSE");
 			print $fh "$name $value\n"; 
-			#print "Printed '$name $value' to swishe config file\n";
 		}
 	}
 	print $fh $self->_expandaliasesforswisheconf("TITLEALIASES");
