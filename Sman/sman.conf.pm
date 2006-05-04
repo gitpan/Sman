@@ -1,14 +1,11 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.1 2006/02/15 16:09:15 joshr Exp $
+#$Id: sman.conf.pm,v 1.5 2006/05/04 19:44:48 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
 # meaningful data.  
-
-1;
-
 
 =head1 NAME
 
@@ -70,7 +67,7 @@ man files into XML, you can use it like this:
 
 =head2 SWISHECMD
 	
-The path and options you'd like to use with swish-e while indexing. 
+The path and options you'd like to use with Swish-e while indexing. 
 If undefined, will default to 'swish-e'. Appropriate Swish-e options 
 will be appended when indexing.
 
@@ -79,7 +76,7 @@ will be appended when indexing.
 =head2 TMPDIR
 
 where to put various temporary files. Defaults to /tmp.
-(Use SWISHE_TMPDIR to set affect SWISH-E at index time) 
+(Use SWISHE_TMPDIR to set affect Swish-e at index time) 
 
 	Example: TMPDIR /tmp 
 
@@ -110,12 +107,12 @@ line-breaking during indexing on some systems.
 =head2 SWISHE_* (SWISHE_IndexFile, ...)
 
 All parameters beginning with SWISHE_ have the SWISHE_ prefix stripped 
-and are written into a tmp config file for SWISH-E at index time.
+and are written into a tmp config file for Swish-e at index time.
 
 SWISHE_IndexFile is also used by sman to know which index to search.
 
 You shouldn't need to change any of the other SWISHE_* parameters.
-They are all documented (without the SWISHE_ prefix) in the SWISH-E
+They are all documented (without the SWISHE_ prefix) in the Swish-e
 documentation.
 
 	Examples: 
@@ -123,7 +120,7 @@ documentation.
 	# SWISHE_IndexFile specifies which index to create and search
 	SWISHE_IndexFile /var/lib/sman/sman.index 
 	SWISHE_IndexComments      no 
-	# SWISHE_UseStemming       yes 	 # for old versions of swish-e
+	# SWISHE_UseStemming       yes 	 # for old versions of Swish-e
 	SWISHE_FuzzyIndexingMode   Stem
 	SWISHE_MetaNames          desc sec swishtitle 
 	SWISHE_PropertyNames      desc sec 
@@ -137,3 +134,5 @@ Josh Rabinowitz <joshr>
 L<sman>, L<sman-update>
 
 =cut
+
+1;

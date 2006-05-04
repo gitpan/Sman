@@ -2,7 +2,7 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.33 2006/03/09 17:27:14 joshr Exp $
+#$Id: Util.pm,v 1.36 2006/05/04 19:26:54 joshr Exp $
 
 use strict;
 use warnings;
@@ -11,18 +11,26 @@ use File::Temp;	# used in RunCommand()
 use lib '/usr/local/lib/swish-e/perl';
 
 # this checks if the SWISH::API is recent enough to have 
-# the features we use
+# the features we use. returns 1 if yes, 0 otherwise
 sub CheckSwisheVersion {
-	eval {
-		require SWISH::API;
-	};
-	#die "$0: Can't run: need SWISH::API >= 0.03\n" if $@;
-	return 0 if $@;
-	#$^W = 0;
+	#eval {	# wrap the version check in an EVAL in case of failure
+	#	require SWISH::API;
+	#	no strict 'vars';
+	#	use vars qw( $SWISH::API::VERSION );
+	#	unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03) {
+	#		$@ = "Can't run: need SWISH::API >= 0.03\n"; 
+	#		return 0;
+	#	}
+	#};
+	my $class = "SWISH::API";
+	eval "require $class"; 
+
+	return 0 if $@;	
+
 	no strict 'vars';
 	use vars qw( $SWISH::API::VERSION );
 	unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03) {
-		$@ = "Can't run: need SWISH::API >= 0.03\n"; 
+		$@ = "Can't run: need SWISH::API >= 0.03\n"; 	# SET $@ for caller, if they check
 		return 0;
 	}
 	return 1;  # it's OK
@@ -128,7 +136,7 @@ sub GetVersionString {
 		my @lines = `$cmd`;
 		if (defined($lines[0])) {
 			chomp($lines[0]);
-			($lines[0] =~ / ([\d.]+)/) && ($lines[0] = "SWISH-E $1");
+			($lines[0] =~ / ([\d.]+)/) && ($lines[0] = "Swish-e $1");
 			$str .= ", $lines[0]";
 		}
 	}
@@ -196,8 +204,8 @@ Sman::Util currently provides the following functions:
   my ($out, $err, $dollarquestionmark) = Sman::Util::RunCommand("ls -l", "/tmp"); 
 
   # GetVersionString gives you a version string like 
-  # 'sman v0.8.3 using SWISH::API v0.01 and SWISH-E v2.4.0'
-  # pass program name and the swish-e command path
+  # 'sman v0.8.3 using SWISH::API v0.01 and Swish-e v2.4.0'
+  # pass program name and the Swish-e command path
   my $vstr = Sman::Util::GetVersionString('prog', '/usr/local/bin/swish-e');
 	
 =head1 DESCRIPTION

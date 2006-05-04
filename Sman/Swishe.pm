@@ -1,6 +1,6 @@
 package Sman::Swishe;
 
-#$Id: Swishe.pm,v 1.15 2005/09/15 02:44:21 joshr Exp $
+#$Id: Swishe.pm,v 1.16 2006/05/02 02:32:37 joshr Exp $
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use fields qw(config tempfilestounlink);
 
 
 # this doesn't need SWISH::API because we're stuffing data 
-# in with the swish-e exe directly.
+# in with the Swish-e exe directly.
 
 # call like my $smanswishe = new Sman::Swishe($smanconfig);
 sub new {
@@ -55,8 +55,8 @@ sub _expandaliasesforswisheconf {
 	(my $swishname = $name) =~ s/ALIASES//;	# strip off ALIASES
 	$swishname = lc($swishname);
 	$swishname = "swishtitle" if  (lc($swishname) eq "title");	# patchup.
-	# our config calls the title prop 'title', to SWISH-E its swishtitle.
-	# we did this because swishtitle is SWISH-E's default 'title' meta & prop
+	# our config calls the title prop 'title', to Swish-e its swishtitle.
+	# we did this because swishtitle is Swish-e's default 'title' meta & prop
 	my $val = $self->{config}->GetConfigData($name);
 	if ($val) {
 		return   "MetaNameAlias      $swishname $val\n" . 
@@ -78,16 +78,16 @@ sub DESTROY {
 
 =head1 NAME
 
-Sman::Swishe - Sman backend to build an sman index with swish-e
+Sman::Swishe - Sman backend to build an sman index with Swish-e
 
 =head1 SYNOPSIS 
 
   # Sman::Swishe needs an Sman::Config object to build a 
-  # swish-e config file from.
+  # Swish-e config file from.
   my $smanconfig = new Sman::Config(); 
   $smanconfig->ReadDefaultConfigFile(); 
   
-  # now, get Sman::Swishe to write a config file for SWISH-E
+  # now, get Sman::Swishe to write a config file for Swish-e
   my $smanswishe = new Sman::Swishe($smanconfig); 
   $swisheconfigfile = $smanswishe->WriteConfigFile();
   
@@ -97,7 +97,7 @@ Sman::Swishe - Sman backend to build an sman index with swish-e
 =head1 DESCRIPTION
 
 This module creates a custom config file for
-swish-e to build the sman index with.
+Swish-e to build the sman index with.
 
 =head1 AUTHOR
 

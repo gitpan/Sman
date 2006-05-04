@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman,v 1.52 2006/04/02 15:51:27 joshr Exp $ 
+# $Id: sman,v 1.54 2006/05/04 20:33:22 joshr Exp $ 
 # ranked, enhanced 'apropos' emulator
 use strict; 
 use warnings;
@@ -128,22 +128,28 @@ eval {
 		check_for_swishe_error($handle);
 	}
 
-	print "Setting query \n" if $debug; 
-	$results = $handle->Query( $query );	
-	# this aborts (uncatchably in 2.4.3) if rankscheme is 1,
-    # unless index was built w/ IgnoreTotalWordCountWhenRanking set to 0  
-	check_for_swishe_error($handle);
+	if ($query ne "") { 
+		print "Setting query to '$query'\n" if $debug; 
+		$results = $handle->Query( $query );	
+		# this aborts (uncatchably without an eval, in Swish-e 2.4.3) 
+		#  if rankscheme is 1, unless index was built w/ 
+		#  IgnoreTotalWordCountWhenRanking set to 0  
+		check_for_swishe_error($handle);
 
-	print "Checking num hits\n" if $debug;
-	if ( $results->Hits() <= 0 ) {
-	   warn "sman: No Results for '$query'.\n"; 
+		print "Checking num hits\n" if $debug;
+		if ( $results->Hits() <= 0 ) {
+		   warn "sman: No Results for '$query'.\n"; 
+		}
+		check_for_swishe_error($handle);
 	}
-	check_for_swishe_error($handle);
 };
 if ($@) { 
-		warn "sman: index not updated for new rankscheme\n" if $verbose; 
+		warn "sman: index not updated for new rankscheme.\n" if $verbose; 
+		warn "sman: index not updated for new rankscheme: got error ($@)\n" if $debug; 
 		$handle->RankScheme(0); 
 }
+
+exit(0) unless $query ne "";	# THERE IS NO QUERY
 
 my (%seen, %digests);
 my $numrepeats = 0;
