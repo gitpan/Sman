@@ -1,7 +1,10 @@
-#$Id: TODO,v 1.34 2006/05/02 02:09:18 joshr Exp $
+#$Id: TODO,v 1.36 2006/05/18 21:02:26 joshr Exp $
 
 		TODO LIST for SMAN
 		Josh Rabinowitz, 2005-2006  <joshr>
+
+FIXES
+  * test that %V in sman-defaults.conf's SWISHE_IndexPointer is set right
 
 BUILD AND INSTALL
   * Write Bundle::Sman 
@@ -10,7 +13,7 @@ BUILD AND INSTALL
   * improve install:: routine in Makefile.PL to respect user's choices:
     like where to install sman and sman-update 
   * deal with issue of adding /usr/local/lib to /etc/ld.config 
-    or equivalent to handle the 'shared library can't be found' test 
+    or equivalent for  Swish-e's shared libs
   * suggest cronjob to run sman-update
 
 TESTS
@@ -18,6 +21,7 @@ TESTS
     (stuffing in canned XML, and by converting man pages)
   * converting one or more very, very common manpages (if found)
   * fix --testfile option on sman-update
+  * cleanup CheckForSwisheVersion() for PAUSE indexer
 
 RUNTIME
   * Autoprobe for arcane features of man (ie, will 'man n wm' work on OSX?)
@@ -25,6 +29,7 @@ RUNTIME
   * catch possible 'err: Severe index error in header' error from swish-e
 
 DOCUMENTATION 
+  * write an FAQ
   * write up user's guide to searching: how to search on parts, 
     query syntax, and what a word is (that mod_perl, Time::HiRes, and 
     named.conf are all words!)
@@ -35,7 +40,6 @@ SECURITY
   * allow admin to configure user sman-update runs as:
     add USER and GROUP directives for sman-update settings
   * document running as low-priv user more fully
-  * check config and tmp file ownership - implement _issafe()
   * make taint-clean? use Safe.pm?
   * watch what we pass to the shell more carefully
 

@@ -1,14 +1,20 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
-Copyright 2006 Josh Rabinowitz  <joshr>
-#$Id: Changes,v 1.73 2006/05/04 20:35:47 joshr Exp $
+Copyright 2004-2006 Josh Rabinowitz  <joshr>
+#$Id: Changes,v 1.77 2006/07/07 02:27:14 joshr Exp $
 
+1.01   Thu Jul 06 2006
+        Documentation updates
+        Tiny change to sman.conf.pm's pod for Test::Pod
+		Changes to sman-defaults.conf for swished's swished_example.cgi
+		  (see http://search.cpan.org/dist/swished/ )
+        Updates to TODO file
 1.00   Thu May 04 2006
         Removed spurious error message when using sman's -v option without a query
         Changed source & -V version string to show Swish-e capitalized as here
         Test current Swish-e version more carefully in Sman::Util
         More error output in sman's undocumented --Debug mode
-        Cleanup up how we check for $SWISH::API::VERSION
+        Cleanup how we check for $SWISH::API::VERSION
         Touchups to formatting of Changes file
         Updated various dates to 2006
         Tiny POD touchups

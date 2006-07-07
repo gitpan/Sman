@@ -1,11 +1,12 @@
 package Sman::Swishe;
 
-#$Id: Swishe.pm,v 1.16 2006/05/02 02:32:37 joshr Exp $
+#$Id: Swishe.pm,v 1.17 2006/07/07 02:28:22 joshr Exp $
 
 use strict;
 use warnings;
 use File::Temp qw/ tempfile /;
 use fields qw(config tempfilestounlink);
+use Sman;	# for $Sman::SMAN_DATA_VERSION
 
 
 # this doesn't need SWISH::API because we're stuffing data 

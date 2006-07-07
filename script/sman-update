@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.41 2006/04/01 22:26:47 joshr Exp $
+# $Id: sman-update,v 1.42 2006/05/05 14:23:38 joshr Exp $
 # man indexing SWISH-E prog 
 
 # Copyright (c) Josh Rabinowitz 2004-2005
@@ -223,7 +223,7 @@ __END__
 
 =head1 NAME
 
-sman-update - Perl tool to index man pages (part of sman package)
+sman-update - Perl program to index man pages (for searching with sman program)
 
 =head1 SYNOPSIS
 
@@ -255,7 +255,8 @@ or just
 
 =head1 DESCRIPTION
 
-Sman-update creates the index for Sman, the Searcher for Man pages. 
+Sman-update creates the index of man pages for the sman program,
+which searches on that index.
 By default the index is stored in /var/lib/sman.
 
 Sman-update should be run periodically to keep your sman index in sync
@@ -272,9 +273,9 @@ configuration files.
 
 =head1 SECURITY
 
-For increased security, sman-update can be run as a non-priveleged user. The only
-thing that needs to be done to allow this to happen is to chown the directory
-/var/lib/sman and it's contents to the appropriate user.
+For increased security, sman-update can be run as a non-priveleged user. To
+do so, chown the directory /var/lib/sman and its contents to the 
+appropriate user.
 
 =head1 AUTHOR
 

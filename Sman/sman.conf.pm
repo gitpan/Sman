@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.5 2006/05/04 19:44:48 joshr Exp $
+#$Id: sman.conf.pm,v 1.6 2006/05/19 08:54:53 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
@@ -132,7 +132,5 @@ Josh Rabinowitz <joshr>
 =head1 SEE ALSO
 
 L<sman>, L<sman-update>
-
-=cut
 
 1;

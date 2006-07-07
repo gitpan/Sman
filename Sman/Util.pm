@@ -2,7 +2,7 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.36 2006/05/04 19:26:54 joshr Exp $
+#$Id: Util.pm,v 1.37 2006/05/04 22:15:03 joshr Exp $
 
 use strict;
 use warnings;
@@ -23,13 +23,27 @@ sub CheckSwisheVersion {
 	#	}
 	#};
 	my $class = "SWISH::API";
-	eval "require $class"; 
+	eval "require $class"; 	# if the class exists, this should load it
 
 	return 0 if $@;	
 
 	no strict 'vars';
 	use vars qw( $SWISH::API::VERSION );
 	unless ($SWISH::API::VERSION && $SWISH::API::VERSION >= 0.03) {
+		# PAUSE namespace indexer complains about the line above:
+			# " The PAUSE indexer was not able to parse the following line
+			# in that file: C< unless ($SWISH::API::VERSION &&
+			# $SWISH::API::VERSION >= 0.03) { > Note: the indexer is
+			# running in a Safe compartement and cannot provide the full
+			# functionality of perl in the VERSION line. It is trying
+			# hard, but sometime it fails. As a workaround, please
+			# consider writing a proper META.yml that contains a
+			# 'provides' attribute (currently only supported by
+			# Module::Build) or contact the CPAN admins to investigate
+			# (yet another) workaround against "Safe" limitations.) "
+
+		# I don't understand why the namespace indexer needs to parse (run) this function
+
 		$@ = "Can't run: need SWISH::API >= 0.03\n"; 	# SET $@ for caller, if they check
 		return 0;
 	}

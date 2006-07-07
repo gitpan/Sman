@@ -56,28 +56,28 @@ Building the index:
 Searching the man page index with sman:
 	The sman command is fairly simple. As its help output says:
 
-	Usage: sman [--max=#] [--rank] [--number] [--index='index'] 
-				[--file] [--help] [--repeats] [--begin=#'] [--config=file]
-				[--quote='"'] [--verbose] [--VERSION] searchwords
-	Ranked freetext searches on manpages.
-	Options:
-	  --max=#:                limit number of results, default 20
-	  --number:               show the number of each hit
-	  --repeats:              show repeat manpages
-	  --begin=#:              start showing hits at number N
-	  --rank:                 show the rank of each hit
-	  --file:                 show the source man file for each hit
-	  --extract:              show extraction of manpage for each hit
-	  --config=my-sman.conf:  a config file (specs an index file)
-	  --index=index:          specify an index (overrides config)
-	  --quote="'":            specify a quoting char for output
-	  --verbose:              show more output
-	  --VERSION:              show version and exit
-	  --help:                 this help information
+    Usage: sman [--max=#] [--rank] [--number] [--index='index'] 
+                [--file] [--help] [--repeats] [--begin=#'] [--config=file]
+                [--quote='"'] [--verbose] [--VERSION] searchword [...]
+    Ranked freetext searches on manpages.
+    Options:
+      --max=#:                limit number of results, default 20
+      --rank:                 show the rank of each hit
+      --number:               show the number of each hit
+      --index=index:          specify an index (overrides config)
+      --file:                 show the source man file for each hit
+      --help:                 this help information
+      --repeats:              show repeat manpages
+      --begin=#:              start showing hits at number N
+      --config=my-sman.conf:  a config file (specs an index file)
+      --quote='"':            specify a quoting char for output
+      --extract:              show extraction of manpage for each hit
+      --verbose:              show more output
+      --VERSION:              show version and exit
 
 MORE INFO
-    Sman is somewhat thoroughly documented. For more info, see 
-	'perldoc sman',  'perldoc sman-update', or the Sman distribution.
+    Sman is thoroughly documented. For more info, see 'perldoc sman',  
+    'perldoc sman-update', or the Sman distribution itself.
 
 TESTING 
 	Sman has been tested on several versions of perl and unix-like operating
