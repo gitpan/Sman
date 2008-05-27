@@ -1,8 +1,23 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
-Copyright 2004-2006 Josh Rabinowitz  <joshr>
-#$Id: Changes,v 1.77 2006/07/07 02:27:14 joshr Exp $
+Copyright 2004-2008 Josh Rabinowitz  <joshr>
+#$Id: Changes,v 1.85 2008/05/25 02:47:30 joshr Exp $
 
+1.03   Wed May 28 2008
+        Look in /usr/local/lib/swish-e/perl and /usr/libexec/swish-e/perl/
+            for SWISH::DefaultHighlight. Latter is where rpms put it.
+        Better error outputs if we can't locate swish-e or load SWISH::API.
+        No known machines use 'cat %F | gunzip -f --stdout | man -c' 
+          to get ascii from manpages; method removed (it caused warnings on CentOS4).
+        Added to and changed the TODO file.
+        Enable (undocumented) ability to use doclifter as a manpage-to-xml converter.
+        Added --scheme=[0|1] command line option to sman (default is 1, if the
+          version of Swish-e installed supports it).
+        Add support for fink on MacOSX.
+        Support for debian 4.0 and later.
+        Code cleanups and corrections; better error reporting.
+1.02 
+        Not released
 1.01   Thu Jul 06 2006
         Documentation updates
         Tiny change to sman.conf.pm's pod for Test::Pod

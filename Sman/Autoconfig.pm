@@ -3,7 +3,7 @@ use Sman::Man::Convert;
 use Storable;
 
 
-#$Id: Autoconfig.pm,v 1.10 2005/08/26 21:40:23 joshr Exp $
+#$Id: Autoconfig.pm,v 1.12 2008/05/25 02:40:42 joshr Exp $
 
 use strict;
 use warnings;
@@ -20,10 +20,15 @@ use warnings;
 	#MANCMD man -c %S %C
 
 	# these are the man commands we try
-my @tries = ( 'man -c %F', 'man -c %S %C', 'cat %F | gunzip -f --stdout | man -c' );	
+#my @tries = ( 'man -c %F', 'man -c %S %C', 'cat %F | gunzip -f --stdout | man -c' );	
 	# the last option above does not work, so it's been removed. (it needs tmp file in the middle.)
-	# we leave it in anyway, it won't get used if doesn't work
-	# man -c means to reparse manpage input
+	# we once left it in anyway, it won't get used if doesn't work, but it causes warnings under cron
+my @tries = ( 
+                'man %F',              # debian 4.0 needs this, the simplest one, which none supported for years.
+                'man -c %F', 
+                'man -c %S %C',
+            );
+	# man -c means to reparse manpage input (and not use the manpage cache)
 	# gunzip -f means just cat it if it's not compressed
 	# gunzip --stdout means put the output to stdout (I think this is the default)
 
@@ -47,10 +52,11 @@ sub GetBestManCommand {
 
 	my %cmdwins = ();	# hash of cmd -> sum of lengths of output for this command
 	for my $file (@testfiles) {
-		warn "Testing $file" if $smanconfig->GetConfigData("VERBOSE");;
+		warn "Testing $file" if $smanconfig->GetConfigData("VERBOSE");
 		my ($maxlen, $winningcmd) = (0, "");
 		for my $mancmd (keys(%converters)) {	# go through the converters
 			my ($parser, $contentref) = $converters{$mancmd}->ConvertManfile($file);
+            printf( "$0: Got %d bytes from %s\n", length($$contentref), $mancmd ) if $smanconfig->GetConfigData( "DEBUG" );
 			if (length($$contentref) > $maxlen) {	# record the largest output and its cmd
 				$maxlen = length($$contentref);
 				$winningcmd = $mancmd;

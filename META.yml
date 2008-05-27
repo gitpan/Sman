@@ -1,10 +1,13 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Sman
-version:      1.01
-version_from: Sman.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Sman
+version:             1.03
+abstract:            Tool for searching and indexing man pages
+license:             ~
+author:              
+    - Josh Rabinowitz
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
     Cache::Cache:                  0
     Cache::FileCache:              0
     Compress::Zlib:                0
@@ -16,6 +19,6 @@ requires:
     POSIX:                         0
     Storable:                      0
     Term::Size:                    0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

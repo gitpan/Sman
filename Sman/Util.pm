@@ -2,13 +2,17 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.37 2006/05/04 22:15:03 joshr Exp $
+#$Id: Util.pm,v 1.42 2008/05/23 19:04:40 joshr Exp $
 
 use strict;
 use warnings;
 use Config;	# to get perl version string
 use File::Temp;	# used in RunCommand()
-use lib '/usr/local/lib/swish-e/perl';
+
+#  TODO: FIX THIS, to do... what?
+use lib '/usr/local/lib/swish-e/perl';  # for source installs, so we can find SWISH::DefaultHighlight.pm
+use lib '/usr/libexec/swish-e/perl/';   # for rpm installs, so we can find SWISH::DefaultHighlight.pm
+use lib '/sw/lib/swish-e/perl';         # for fink-installed SWISH::DefaultHightlight. TODO: cleanup.
 
 # this checks if the SWISH::API is recent enough to have 
 # the features we use. returns 1 if yes, 0 otherwise
@@ -24,8 +28,11 @@ sub CheckSwisheVersion {
 	#};
 	my $class = "SWISH::API";
 	eval "require $class"; 	# if the class exists, this should load it
-
-	return 0 if $@;	
+    
+    if ($@) {
+        warn "$0: Can't load $class\n";
+        return 0;
+    }
 
 	no strict 'vars';
 	use vars qw( $SWISH::API::VERSION );
@@ -44,6 +51,7 @@ sub CheckSwisheVersion {
 
 		# I don't understand why the namespace indexer needs to parse (run) this function
 
+        warn "$0: Can't run: need SWISH::API >= 0.03\n";
 		$@ = "Can't run: need SWISH::API >= 0.03\n"; 	# SET $@ for caller, if they check
 		return 0;
 	}
@@ -89,16 +97,16 @@ sub WriteFile {
 	# given a command and optional tmpdir, returns (stdout, stderr, $?) 
 	# uses the shell underneath
 	sub RunCommand {
-		my ($cmd, $tmpdir) = @_;
+		my ($cmd, $tmpdir, $should_be_undef) = @_;
+        die "$0: Internal Error: Sman::Util::RunCommand called with three arguments\n" 
+            if $should_be_undef;
 		$tmpdir = "/tmp" unless defined $tmpdir;
 		my ($out, $err) = ("", "");
 		my $r = sprintf("%04d", rand(9999));
 		my ($ofh, $outfile) = File::Temp::tempfile( "cmd-out.XXXXX", DIR => $tmpdir);
 		my ($efh, $errfile) = File::Temp::tempfile( "cmd-err.XXXXX", DIR => $tmpdir);
-		#my ($outfile, $errfile) = 
-		#	("$tmpdir/cmd" . $$ . "_$r.out", "$tmpdir/cmd" . $$ . "_$r.err");
 		# use two temporary filenames 
-		my $torun = "$cmd 1> $outfile 2>$errfile";
+		my $torun = "$cmd 1>$outfile 2>$errfile";
 		push(@tmpfiles, $outfile, $errfile);	# in case of SIG
 		#print "RUNNING $torun\n";
 		system($torun);

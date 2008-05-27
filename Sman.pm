@@ -1,12 +1,14 @@
 package Sman;
 
-#$Id: Sman.pm,v 1.81 2006/07/07 02:38:54 joshr Exp $
+#$Id: Sman.pm,v 1.86 2008/05/25 02:43:15 joshr Exp $
 
 require 5.006;
 use strict;
-our $VERSION = '1.01';
-our $SMAN_DATA_VERSION = "1.2";     # this is only relevant to Sman
-	# 1.2 enables section "N"
+our $VERSION = '1.03';
+our $SMAN_DATA_VERSION = "1.4";     # this is only relevant to Sman
+	# SMAN_DATA_VERSION 1.2 enables section "N"
+    # SMAN_DATA_VERSION 1.3 enables use of doclifter to convert pages
+    # SMAN_DATA_VERSION 1.4 re-disables use of doclifter to convert pages
 
 1;
 __END__

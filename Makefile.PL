@@ -1,4 +1,4 @@
-#$Id: Makefile.PL,v 1.26 2006/02/15 16:54:32 joshr Exp $
+#$Id: Makefile.PL,v 1.27 2007/12/19 17:29:29 joshr Exp $
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -8,7 +8,7 @@ WriteMakefile(
 	'EXE_FILES' => [ qw( script/sman script/sman-update ) ],	 # these go to their perl bin dir
     'VERSION_FROM'	=> 'Sman.pm', # finds $VERSION
     'PREREQ_PM'		=> { 
-						#SWISH::API => 0.03, 
+                        #SWISH::API => 0.03, 
 							# above commented out because
 							# on FC1 'perl Makefile.PL' complains
 							# Can't locate auto/SWISH/API/VERSION.al  if we leave it in!
@@ -50,7 +50,7 @@ sub postamble {
 
 
 # this takes a one-liner of perl code and preps 
-# it for insertion in a makefile
+# it for insertion in a Makefile
 sub pquote {
 	my $p = shift;
 	$p =~ s/\n/\\n/;

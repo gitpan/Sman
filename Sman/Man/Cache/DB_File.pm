@@ -5,11 +5,8 @@ package Sman::Man::Cache::DB_File;
 
 __END__
 
-#$Id: DB_File.pm,v 1.4 2005/08/26 21:40:23 joshr Exp $
+#$Id: DB_File.pm,v 1.5 2007/12/19 17:25:39 joshr Exp $
 
-
-
-#@ISA = qw( Sman::Man::Cache );
 use base 'Sman::Man::Cache';
 use fields qw( dbfile );
 
@@ -65,7 +62,7 @@ Sman::Man::Cache::DB_File - Cache converted manpages in a DB_File
     
 =head1 DESCRIPTION
 
-Uses a Cache::Cache subclas to store raw data for use by 
+Uses a Cache::Cache subclass to store raw data for use by 
 Sman::Man::Convert.
     
 =head1 AUTHOR

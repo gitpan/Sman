@@ -74,6 +74,8 @@ Searching the man page index with sman:
       --extract:              show extraction of manpage for each hit
       --verbose:              show more output
       --VERSION:              show version and exit
+      --scheme=[0|1]:         swish-e RankScheme to use. Default is 1
+
 
 MORE INFO
     Sman is thoroughly documented. For more info, see 'perldoc sman',  
@@ -85,5 +87,5 @@ TESTING
 
 COPYRIGHT AND LICENCE 
 	This software is licensed the same as perl itself.  
-	Copyright (C) 2003-2006 Josh Rabinowitz <joshr>
+	Copyright (C) 2003-2007 Josh Rabinowitz <joshr>
 

@@ -1,5 +1,5 @@
 package Sman::Man::Convert;
-#$Id: Convert.pm,v 1.35 2005/09/15 02:43:06 joshr Exp $
+#$Id: Convert.pm,v 1.37 2008/05/25 02:40:59 joshr Exp $
 
 use strict;
 use warnings;
@@ -40,7 +40,6 @@ sub ClearCache {
 	$cache->Clear();
 }
 
-# we do it with rman if we can. 
 #returns a list of (ParserToUse, ContentRef)
 sub ConvertManfile {   
 	my ($self, $file) = @_; 
@@ -68,7 +67,6 @@ sub ConvertManfile {
 
 	my $origdir;
 	my $hadwarning = 0;
-	my $xml = "";
 	my ($out, $err) = ("", "");
 	if ($file =~ /^(.*\/man\/)/) {
 		$origdir = Cwd::getcwd();
@@ -78,6 +76,16 @@ sub ConvertManfile {
 	} else {
 		warn "** Couldn't find /man/... dir to cd into for $file" if $config->GetConfigData("VERBOSE");
 	}
+    ## DOCLIFTER HACKED IN FOR TESTING: 
+    #if (-x "/usr/local/bin/doclifter" ) {
+    #    my ($stdout, $stderr, $dollarquestionmark) = 
+    #        Sman::Util::RunCommand( "/bin/zcat -f '$file' | /usr/local/bin/doclifter" );
+    #    $out = $stdout;
+    #    if ($stderr) {
+    #        warn "Error from doclifter: $stderr\n";
+    #    }
+    #}
+    # DOCLIFTER HACKED IN FOR TESTING: 
 	unless($out) {
 		my $hashref = $self->ConvertManfileManually($file);
 		$out = Sman::Util::MakeXML($hashref); 
