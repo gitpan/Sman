@@ -1,11 +1,11 @@
 --- #YAML:1.0
 name:                Sman
-version:             1.03
+version:             1.03_001
 abstract:            Tool for searching and indexing man pages
 license:             ~
 author:              
     - Josh Rabinowitz
-generated_by:        ExtUtils::MakeMaker version 6.44
+generated_by:        ExtUtils::MakeMaker version 6.38
 distribution_type:   module
 requires:     
     Cache::Cache:                  0

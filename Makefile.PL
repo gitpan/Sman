@@ -1,4 +1,4 @@
-#$Id: Makefile.PL,v 1.27 2007/12/19 17:29:29 joshr Exp $
+#$Id: Makefile.PL,v 1.29 2008/06/02 22:26:30 joshr Exp $
 
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
@@ -6,7 +6,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'		=> 'Sman',
 	'EXE_FILES' => [ qw( script/sman script/sman-update ) ],	 # these go to their perl bin dir
-    'VERSION_FROM'	=> 'Sman.pm', # finds $VERSION
+    'VERSION_FROM'	=> 'Sman/Util.pm', # finds $VERSION
     'PREREQ_PM'		=> { 
                         #SWISH::API => 0.03, 
 							# above commented out because

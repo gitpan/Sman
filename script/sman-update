@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# $Id: sman-update,v 1.47 2008/05/25 02:41:17 joshr Exp $
+# $Id: sman-update,v 1.48 2008/06/02 22:25:53 joshr Exp $
 # man indexing SWISH-E prog 
 
 # Copyright (c) Josh Rabinowitz 2004-2007
@@ -11,8 +11,7 @@ use strict;
 use warnings;
 use bytes; # NOTE: swish-e won't understand UTF8 nor multi-byte chars 
 use Getopt::Long qw(:config no_ignore_case); 
-use Sman;   # for $VERSION
-use Sman::Util;
+use Sman::Util; # for $VERSION
 use Sman::Config;
 use Sman::Swishe;
 use Sman::Man::Find;
@@ -186,7 +185,7 @@ sub main {
         # update the sman.index.version file
         my $index_versions = new Sman::IndexVersion( $smanconfig );
         $index_versions->set_versions( 
-            { VERSION=> $Sman::VERSION, SMAN_DATA_VERSION=>$Sman::SMAN_DATA_VERSION }
+            { VERSION=> $Sman::Util::VERSION, SMAN_DATA_VERSION=>$Sman::Util::SMAN_DATA_VERSION }
         );
         
     }

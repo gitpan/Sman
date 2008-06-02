@@ -2,12 +2,15 @@
 package Sman::Util;
 use Sman;	# for VERSION
 
-#$Id: Util.pm,v 1.42 2008/05/23 19:04:40 joshr Exp $
+#$Id: Util.pm,v 1.43 2008/06/02 22:26:10 joshr Exp $
 
 use strict;
 use warnings;
 use Config;	# to get perl version string
 use File::Temp;	# used in RunCommand()
+
+our $VERSION = '1.03_001';
+our $SMAN_DATA_VERSION = "1.4";     # this is only relevant to Sman
 
 #  TODO: FIX THIS, to do... what?
 use lib '/usr/local/lib/swish-e/perl';  # for source installs, so we can find SWISH::DefaultHighlight.pm
@@ -143,7 +146,7 @@ sub WriteFile {
 
 sub GetIndexDescriptionString {
 	my ($index) = @_;
-	my $indexmodtime = (stat($index))[9];
+	my $indexmodtime = (stat( "$index.prop" ))[9];
 	return sprintf("Using index %s, %s\n", 
 		$index, $indexmodtime ? "updated " . scalar(localtime( $indexmodtime ) ) : "(index not found)" );
 }
@@ -152,7 +155,7 @@ sub GetVersionString {
 	my ($prog, $swishecmd) = @_;
 	require SWISH::API;	# for $VERSION
 	require Sman;		# for $VERSION
-	my $str = "$prog $Sman::VERSION, using SWISH::API $SWISH::API::VERSION";
+	my $str = "$prog $Sman::Util::VERSION, using SWISH::API $SWISH::API::VERSION";
 	if ($swishecmd) {
 		my $cmd = $swishecmd . " -V";
 		my @lines = `$cmd`;

@@ -1,8 +1,12 @@
 Revision history for Sman.  
 http://joshr.com/src/sman/
 Copyright 2004-2008 Josh Rabinowitz  <joshr>
-#$Id: Changes,v 1.85 2008/05/25 02:47:30 joshr Exp $
+#$Id: Changes,v 1.87 2008/06/02 22:27:19 joshr Exp $
 
+1.03_001
+        Changes for PAUSE 
+        Changes for swish-e 2.6
+        
 1.03   Wed May 28 2008
         Look in /usr/local/lib/swish-e/perl and /usr/libexec/swish-e/perl/
             for SWISH::DefaultHighlight. Latter is where rpms put it.
