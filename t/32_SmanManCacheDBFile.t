@@ -6,9 +6,7 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 use strict;
 use warnings;
-use Test;
-
-BEGIN { plan tests => 2 };
+use Test::More tests => 2;
 
 # we don't use the DB_File cache anymore
 #use Sman::Man::Cache::DB_File; 

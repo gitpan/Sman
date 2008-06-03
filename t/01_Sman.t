@@ -5,13 +5,11 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test;
+use Test::More tests => 1;
 
-BEGIN { plan tests => 1 };
+use_ok( "Sman" );
 
-use Sman;
-
-ok(1); # If we made it this far, we're ok.
+#ok(1); # If we made it this far, we're ok.
 
 #########################
 

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Sman
-version:             1.03_001
+version:             1.03_002
 abstract:            Tool for searching and indexing man pages
 license:             ~
 author:              

@@ -5,14 +5,12 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test;
+use Test::More tests => 2;
+use_ok( "Digest::MD5" );
+use_ok( "Sman::Autoconfig" );
 
-BEGIN { plan tests => 1 };
 
-use Digest::MD5;
-use Sman::Autoconfig;
-
-ok(1); # If we made it this far, we're ok.
+#ok(1); # If we made it this far, we're ok.
 
 #########################
 

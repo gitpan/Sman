@@ -5,42 +5,42 @@ package Sman::Man::Cache::DB_File;
 
 __END__
 
-#$Id: DB_File.pm,v 1.5 2007/12/19 17:25:39 joshr Exp $
+#$Id: DB_File.pm,v 1.6 2008/06/03 15:38:48 joshr Exp $
 
 use base 'Sman::Man::Cache';
 use fields qw( dbfile );
 
 # pass a filename to store the DB_File in
 sub new {
-	require DB_File;
+    require DB_File;
    my $class = shift;
-	my $file = shift;
+    my $file = shift;
    my $self = fields::new($class);
 
    $self->SUPER::new();                # init base fields 
 
-	if (defined($file)) {
-		my %totie;
-		#tie %totie, "DB_File", $file, O_CREAT|O_RDWR, 0666, $DB_HASH ;
-		my $tied = tie %totie, "DB_File", $file, O_CREAT|O_WRONLY, 0666, $DB_HASH ;
-		$self->{dbfile} = \%totie;
-	}
-	return $self;
+    if (defined($file)) {
+        my %totie;
+        #tie %totie, "DB_File", $file, O_CREAT|O_RDWR, 0666, $DB_HASH ;
+        my $tied = tie %totie, "DB_File", $file, O_CREAT|O_WRONLY, 0666, $DB_HASH ;
+        $self->{dbfile} = \%totie;
+    }
+    return $self;
 }
 
 sub get {
-	my $self = shift;
-	my $key = shift;
-	if (defined($self->{dbfile}) && exists($self->{dbfile}->{$key}) ) {
-		return $self->{dbfile}->{$key};
-	}
-	return undef;
+    my $self = shift;
+    my $key = shift;
+    if (defined($self->{dbfile}) && exists($self->{dbfile}->{$key}) ) {
+        return $self->{dbfile}->{$key};
+    }
+    return undef;
 }
 sub set {
-	my $self = shift;
-	my $key = shift;	
-	# we handle rawdata right from $_[0]. Why not?
-	$self->{dbfile}->{$key} = $_[0] if $self->{dbfile};
+    my $self = shift;
+    my $key = shift;    
+    # we handle rawdata right from $_[0]. Why not?
+    $self->{dbfile}->{$key} = $_[0] if $self->{dbfile};
 } 
 
 1;

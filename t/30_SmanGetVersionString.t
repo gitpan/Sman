@@ -5,11 +5,10 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test;
-use warnings;
-use strict;
-BEGIN { plan tests => 1 };
+use Test::More tests => 1;
 ok(1); # If we made it this far, we're ok.
+
+#use_ok( "Sman::Config" );
 
 
 __END__

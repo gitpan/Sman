@@ -6,16 +6,12 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 use strict;
 use warnings;
-use Test;
 
-BEGIN { plan tests => 2 };
-
-use Sman::Man::Cache::FileCache; 
-ok(1); # If we made it this far, we're ok.
-
+use Test::More tests => 2;
+use_ok( "Sman::Man::Cache::FileCache" );
 
 my $obj = new Sman::Man::Cache::FileCache(undef); 
-ok(1); # If we made it this far, we're ok.  
+ok( $obj, "Sman::Man::Cache::FileCache" ); # If we made it this far, we're ok.  
 
 
 #########################

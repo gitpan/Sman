@@ -1,14 +1,14 @@
 package Sman::Man::Cache; # has two subclasses:
 
-#$Id: Cache.pm,v 1.4 2005/08/26 21:40:23 joshr Exp $
+#$Id: Cache.pm,v 1.5 2008/06/03 15:38:48 joshr Exp $
 
 use fields qw( none );
 
 sub new {
    my Sman::Man::Cache $self = shift;
    unless (ref $self) {
-	   $self = fields::new($self);
-	   #$self->{_Foo_private} = "this is Foo's secret";
+       $self = fields::new($self);
+       #$self->{_Foo_private} = "this is Foo's secret";
    }
    #$self->{foo} = 10;
    #$self->{bar} = 20;
@@ -16,18 +16,18 @@ sub new {
 }
 
 #sub new {
-#	my $proto = shift;
-#	my $class = ref($proto) || $proto;
-#	my $self  = {};
-#	bless ($self, $class);
-#	return $self;
+#   my $proto = shift;
+#   my $class = ref($proto) || $proto;
+#   my $self  = {};
+#   bless ($self, $class);
+#   return $self;
 #}
 
 sub get {
-	die "Must use subclass of __PACKAGE__";
+    die "Must use subclass of __PACKAGE__";
 }
 sub set {
-	die "Must use subclass of __PACKAGE__";
+    die "Must use subclass of __PACKAGE__";
 }
 
 #package Sman::Man::Cache::FileCache;

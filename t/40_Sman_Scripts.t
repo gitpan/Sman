@@ -6,11 +6,10 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 use strict;
 use warnings;
-use Test;
+use Test::More tests => 1;
 use Config;
 
-BEGIN { plan tests => 1 };
-ok(1==1);
+use_ok( "Sman::Config" );
 
 __END__
 
@@ -20,10 +19,10 @@ my $perlpath = $Config::Config{perlpath};
 my @lines;
 
 eval { @lines = `$perlpath script/sman -h`; };
-skip( 1, ($@) ? (0) : 1);	# skip this test
+skip( 1, ($@) ? (0) : 1);   # skip this test
 
 eval { @lines = `$perlpath script/sman-update -h`; };
-skip( 1, ($@) ? (0) : 1);	# skip this test
+skip( 1, ($@) ? (0) : 1);   # skip this test
 
 #########################
 

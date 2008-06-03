@@ -1,5 +1,5 @@
 package Sman::Man::Find; 
-#$Id: Find.pm,v 1.11 2005/09/02 21:29:26 joshr Exp $
+#$Id: Find.pm,v 1.12 2008/06/03 15:38:48 joshr Exp $
 
 use File::Find; 
 use strict;
@@ -7,22 +7,22 @@ use warnings;
 
 # to be called like "my @files = Sman::Man::Find::FindManFiles()" 
 sub FindManFiles {  # get manfiles in MANPATH
-	my ($manpath, $matchregex) = @_;
+    my ($manpath, $matchregex) = @_;
     my @files;
     chomp($manpath ||= $ENV{MANPATH} || `manpath` || '/usr/share/man');
 
-	#$matchregex = 'man/man.*\.' unless defined $matchregex;
+    #$matchregex = 'man/man.*\.' unless defined $matchregex;
 
-	my @dirs =  split(/:/, $manpath);
-	for my $dir (@dirs) {
-		next unless ($dir && -e $dir && (-d $dir || -l $dir));	# skip non-existent dirs
-		File::Find::find( sub { 
-		  my $n = $File::Find::name;
-		  push @files, $n 
-		  if -f $n && $n =~ m!man/man.*\.!
-	   }, $dir ); 
-	}
-	return @files;
+    my @dirs =  split(/:/, $manpath);
+    for my $dir (@dirs) {
+        next unless ($dir && -e $dir && (-d $dir || -l $dir));  # skip non-existent dirs
+        File::Find::find( sub { 
+          my $n = $File::Find::name;
+          push @files, $n 
+          if -f $n && $n =~ m!man/man.*\.!
+       }, $dir ); 
+    }
+    return @files;
 } 
 
 1;
@@ -34,7 +34,7 @@ Sman::Man::Find - Find manpage files for indexing by sman-update
 =head1 SYNOPSIS
 
   my @manfiles = Sman::Man::Find::FindManFiles();
-	
+    
 =head1 DESCRIPTION
 
 Provides a single function, FindManFiles(), which looks for man-like files

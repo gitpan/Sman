@@ -5,15 +5,15 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test;
-
-BEGIN { plan tests => 1 };
-
-use Sman::IndexVersion;
-use Sman::Config;
+use Test::More tests => 5;
+use_ok( "Sman::IndexVersion" );
+use_ok( "Sman::Config" );
 
 my $config = new Sman::Config();
+ok( $config, "new Sman::Config" );
+
 my $indexversion = new Sman::IndexVersion( $config );
+ok( $indexversion, "indexversion" );
 
 ok(1); # If we made it this far, we're ok.
 

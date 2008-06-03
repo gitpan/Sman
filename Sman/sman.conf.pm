@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-#$Id: sman.conf.pm,v 1.6 2006/05/19 08:54:53 joshr Exp $
+#$Id: sman.conf.pm,v 1.7 2008/06/03 15:38:48 joshr Exp $
 
 # this file exists solely so that you can type
 # perldoc 'sman.conf' or 'man sman.conf' and get 
@@ -29,8 +29,8 @@ L<Sman::Config> for details.
 Each line in a sman.conf file is either a comment or a directive.  
 Comments are lines that begin with a # character.  
 Directives are of the form:
-	
-	Directive values values values ...
+    
+    Directive values values values ...
 
 The directives currently understood in an sman configuration file are:
 
@@ -40,7 +40,7 @@ A program that is used to strip out backspaces and
 such from the MANCMD output. If undefined, defaults
 to 'col -b'
 
-	Example: COLCMD col -b
+    Example: COLCMD col -b
 
 =head2 MANCMD
 
@@ -56,7 +56,7 @@ currently understood are:
 
   Example: MANCMD AUTOCONFIG (will choose one of the below)
 or
-  Example: MANCMD man %F	 (linux likes this)
+  Example: MANCMD man %F     (linux likes this)
 or
   Example: MANCMD man %S %C  (freebsd prefers this)
 
@@ -66,30 +66,30 @@ man files into XML, you can use it like this:
   Example: MANCMD zcat --stdout -f %F | myprog
 
 =head2 SWISHECMD
-	
+    
 The path and options you'd like to use with Swish-e while indexing. 
 If undefined, will default to 'swish-e'. Appropriate Swish-e options 
 will be appended when indexing.
 
-	Example: SWISHECMD swish-e -v 1
+    Example: SWISHECMD swish-e -v 1
 
 =head2 TMPDIR
 
 where to put various temporary files. Defaults to /tmp.
 (Use SWISHE_TMPDIR to set affect Swish-e at index time) 
 
-	Example: TMPDIR /tmp 
+    Example: TMPDIR /tmp 
 
 =head2 TITLEALIASES, SECALIASES, DESCALIASES
 
 Aliases for the XML tags we expect. These are in case an external program
 returns tags different from what we expect.
 
-	Examples:
-	TITLEALIASES refentrytitle
-	SECALIASES manvolnum
-	DESCALIASES refpurpose 
-	MANPAGEALIASES swishdefault
+    Examples:
+    TITLEALIASES refentrytitle
+    SECALIASES manvolnum
+    DESCALIASES refpurpose 
+    MANPAGEALIASES swishdefault
 
 =head2 ENV_* (ENV_MANWIDTH, ...)
 
@@ -115,15 +115,15 @@ You shouldn't need to change any of the other SWISHE_* parameters.
 They are all documented (without the SWISHE_ prefix) in the Swish-e
 documentation.
 
-	Examples: 
+    Examples: 
 
-	# SWISHE_IndexFile specifies which index to create and search
-	SWISHE_IndexFile /var/lib/sman/sman.index 
-	SWISHE_IndexComments      no 
-	# SWISHE_UseStemming       yes 	 # for old versions of Swish-e
-	SWISHE_FuzzyIndexingMode   Stem
-	SWISHE_MetaNames          desc sec swishtitle 
-	SWISHE_PropertyNames      desc sec 
+    # SWISHE_IndexFile specifies which index to create and search
+    SWISHE_IndexFile /var/lib/sman/sman.index 
+    SWISHE_IndexComments      no 
+    # SWISHE_UseStemming       yes   # for old versions of Swish-e
+    SWISHE_FuzzyIndexingMode   Stem
+    SWISHE_MetaNames          desc sec swishtitle 
+    SWISHE_PropertyNames      desc sec 
 
 =head1 AUTHOR
 
